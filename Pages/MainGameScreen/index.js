@@ -6,4 +6,5 @@ async function getPlayer() {
     .then((resBody) => (currentPlayer = resBody));
   let playerInfo = document.getElementById("PlayerInfo");
   playerInfo.innerText = currentPlayer.name;
+
 }
