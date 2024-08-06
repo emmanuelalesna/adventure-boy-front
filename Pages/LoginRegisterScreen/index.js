@@ -27,29 +27,21 @@ const userLoginForm = document.getElementById("loginUser");
 userLoginForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  let checkLogin;
+  const usernameLogin = e.target.elements["usernameLogin"].value;
+  const passwordLogin = e.target.elements["passwordLogin"].value;
 
-  const loginUser = {
-    Username: e.target.elements["usernameLogin"],
-    Password: e.target.elements["passwordLogin"],
-  };
-
-  fetch(
-    "http://localhost:5114/api/account/" + e.target.elements["usernameLogin"]
-  )
+  fetch("http://localhost:5114/api/account/" + usernameLogin)
     .then((res) => res.json())
-    .then((resBody) => (checkLogin = resBody));
-
-  if (checkLogin == null) {
-    let displayedLoginInfo = document.getElementById("LoginResponse");
-    displayedLoginInfo.innerText = "Incorrect Username!";
-  }
-
-  if (checkLogin.Password == e.target.elements["passwordLogin"]) {
-    let displayedLoginInfo = document.getElementById("LoginResponse");
-    displayedLoginInfo.innerText = JSON.stringify(checkLogin);
-  } else {
-    let displayedLoginInfo = document.getElementById("LoginResponse");
-    displayedLoginInfo.innerText = "Incorrect Password!";
-  }
+    .then((resBody) => {
+      if (!resBody) {
+        let displayedLoginInfo = document.getElementById("LoginResponse");
+        displayedLoginInfo.innerText = "Incorrect Username!";
+      } else if (resBody.Password == passwordLogin) {
+        let displayedLoginInfo = document.getElementById("LoginResponse");
+        displayedLoginInfo.innerText = JSON.stringify(checkLogin);
+      } else {
+        let displayedLoginInfo = document.getElementById("LoginResponse");
+        displayedLoginInfo.innerText = "Incorrect Password!";
+      }
+    });
 });
