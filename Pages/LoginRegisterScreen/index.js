@@ -17,10 +17,29 @@ userRegisterForm.addEventListener("submit", function (e) {
   })
     .then((res) => res.json())
     .then((resBody) => {
-      let displayedRegisterInfo = document.getElementById("RegisterResponse");
-      displayedRegisterInfo.innerText = JSON.stringify(resBody);
+      const id = resBody.accountId;
+      const name = e.target.elements["firstnameRegister"].value;
+      createPlayer(id, name);
     });
 });
+
+const createPlayer = (id, name) => {
+  const player = {
+    PlayerId: id,
+    Name: name,
+  };
+  fetch("http://localhost:5114/api/player", {
+    method: "POST",
+    body: JSON.stringify(player),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then((res) => {
+    if (res.status == 200) {
+      document.getElementById("RegisterResponse").innerText = "Player created!";
+    }
+  });
+};
 
 const userLoginForm = document.getElementById("loginUser");
 
@@ -44,7 +63,8 @@ userLoginForm.addEventListener("submit", function (e) {
         if (resBody.password == passwordLogin) {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText = JSON.stringify(resBody);
-          localStorage.setItem("player", JSON.stringify(resBody));
+          localStorage.setItem("currentAccount", JSON.stringify(resBody));
+          document.getElementById("toFightScreen").hidden = false;
         } else {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText = "Incorrect Password!";
@@ -52,3 +72,7 @@ userLoginForm.addEventListener("submit", function (e) {
       }
     });
 });
+
+const logout = () => {
+  localStorage.clear();
+};
