@@ -44,6 +44,7 @@ userLoginForm.addEventListener("submit", function (e) {
         if (resBody.password == passwordLogin) {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText = JSON.stringify(resBody);
+          localStorage.setItem("player", JSON.stringify(resBody));
         } else {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText = "Incorrect Password!";
