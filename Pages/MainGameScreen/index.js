@@ -16,7 +16,7 @@ function checkRoomIn(room) {
       playRoomOne();
       break;
   }
-
+}
 async function getRoom() {
   const roomUrl = await fetch("http://localhost:5114/api/room/-1")
     .then((res) => res.json())

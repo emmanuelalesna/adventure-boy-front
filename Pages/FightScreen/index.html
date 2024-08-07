@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FightScreen</title>
+    <style>
+      body {
+        background-repeat: no-repeat;
+      }
+    </style>
   </head>
   <body>
+    <button onclick="setUpFight()">Start fight</button>
     <section id="navbarsection">
       NavBar
       <button>
@@ -13,7 +19,12 @@
       </button>
       <button onclick="logout()">Logout</button>
     </section>
-    <section id="enemyphoto"></section>
+    <section>
+      <img id = "enemyphoto">
+    </section>
+    <button onclick="sword()">Swing your sword</button>
+    <button onclick="spell()">Cast a spell</button>
+    <button onclick="defend()">Raise your shield</button>
     <script src="index.js"></script>
     <button onclick="getEnemy()">Get enemy</button>
     <button onclick="getRoomArt()">Get room</button>
