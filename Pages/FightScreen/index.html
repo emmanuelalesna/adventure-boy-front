@@ -6,12 +6,22 @@
     <title>FightScreen</title>
     <style>
       body {
+        background-size: 100% 100%;
         background-repeat: no-repeat;
+      }
+      p {
+        color: white;
+      }
+      #battleText {
+        color: white;
+      }
+      #navbarsection {
+        color: white;
       }
     </style>
   </head>
   <body>
-    <button onclick="setUpFight()">Start fight</button>
+    <button onclick="setUpFight()" id="startFightButton">Start fight</button>
     <section id="navbarsection">
       NavBar
       <button>
@@ -24,13 +34,13 @@
     </section>
     <div id="battleText">
       Battle Information:
-      <section id="textbox">
-        
-      </section>
+      <section id="textbox"></section>
     </div>
-    <button onclick="playerAction('sword')">Swing your sword</button>
-    <button onclick="playerAction('spell')">Cast a spell</button>
-    <button onclick="playerAction('shield')">Raise your shield</button>
+    <div id="actions">
+      <button onclick="playerAction('sword')">Swing your sword</button>
+      <button onclick="playerAction('spell')">Cast a spell</button>
+      <button onclick="playerAction('shield')">Raise your shield</button>
+    </div>
     <script src="index.js"></script>
     <!-- <button onclick="getEnemy()">Get enemy</button>
     <button onclick="getRoomArt()">Get room</button> -->

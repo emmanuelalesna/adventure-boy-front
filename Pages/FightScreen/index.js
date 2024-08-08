@@ -3,30 +3,27 @@ const logout = () => {
   window.location.href = "../LoginRegisterScreen/index.html";
 };
 
-async function getEnemy() {
-  const currentRoom = JSON.parse(localStorage.getItem("currentAccount"))
-    .ownedPlayer.currentRoom;
-  const enemy = await fetch("http://localhost:5114/api/enemy/" + currentRoom)
+async function getEnemyArt(roomNumber) {
+  const enemy = await fetch(
+    "http://localhost:5114/api/enemy/" + (roomNumber + 1)
+  )
     .then((res) => res.json())
     .then((resbody) => resbody);
-  // localStorage.setItem("enemy", JSON.stringify(enemy));
   let cardArt = await fetch(enemy.imageUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
   document.getElementById("enemyphoto").src = cardArt;
-  // document.body.style.backgroundImage = `url(${cardArt})`;
 }
 
-async function getRoomArt() {
-  const currentRoom = JSON.parse(localStorage.getItem("currentAccount"))
-    .ownedPlayer.currentRoom;
-  const roomUrl = await fetch("http://localhost:5114/api/room/" + currentRoom)
+async function getRoomArt(roomNumber) {
+  const roomUrl = await fetch(
+    "http://localhost:5114/api/room/" + (roomNumber + 1)
+  )
     .then((res) => res.json())
     .then((resbody) => resbody.imageUrl);
   let cardArt = await fetch(roomUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
-  // document.getElementById("card_art").src = cardArt;
   document.body.style.backgroundImage = `url(${cardArt})`;
 }
 
@@ -38,13 +35,18 @@ let enemyDefend = false;
 let enemyStrong = false;
 
 const setUpFight = () => {
-  getEnemy();
-  getRoomArt();
-  newCombatInfo("The fight begins!");
-  setCurrentRoom(roomNumber);
-  setCurrentEnemy(roomNumber);
-  setCurrentItem(roomNumber);
-  setCurrentSpell(roomNumber);
+  if (roomNumber <= 4) {
+    clearCombatInfo();
+    getEnemyArt(roomNumber);
+    getRoomArt(roomNumber);
+    newCombatInfo("The fight begins!");
+    setCurrentRoom(roomNumber);
+    setCurrentEnemy(roomNumber);
+    setCurrentItem(roomNumber);
+    setCurrentSpell(roomNumber);
+  }
+  document.getElementById("actions").hidden = false;
+  document.getElementById("startFightButton").hidden = true;
 };
 
 const enemyActionNew = (playerStance) => {
@@ -129,16 +131,34 @@ const newCombatInfo = (text) => {
   toAppend.appendChild(newInfo);
 };
 
+const clearCombatInfo = () => {
+  let element = document.getElementById("textbox");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
 const endCombat = () => {
   if (player.currentHealth <= 0 || currentEnemy.health <= 0) {
     if (currentEnemy.health <= 0) {
       newCombatInfo(`You defeated the ${currentEnemy.enemyName}!`);
       roomNumber++;
-      setUpFight();
+      if (roomNumber > 4) {
+        newCombatInfo("You win!");
+        player.currentHealth = 10;
+      } else {
+        player.currentHealth += roomNumber;
+      }
     } else {
+      roomNumber = 0;
       newCombatInfo("You died!");
+      player.currentHealth = 10;
     }
+    document.getElementById("actions").hidden = true;
+    document.getElementById("startFightButton").hidden = false;
     return true;
   }
   return false;
 };
+
+//TODO: implement mana, save user data, add item and spell images, better integrate enemy/item names
