@@ -20,14 +20,20 @@
       <button onclick="logout()">Logout</button>
     </section>
     <section>
-      <img id = "enemyphoto">
+      <img id="enemyphoto" />
     </section>
-    <button onclick="sword()">Swing your sword</button>
-    <button onclick="spell()">Cast a spell</button>
-    <button onclick="defend()">Raise your shield</button>
+    <div id="battleText">
+      Battle Information:
+      <section id="textbox">
+        
+      </section>
+    </div>
+    <button onclick="playerAction('sword')">Swing your sword</button>
+    <button onclick="playerAction('spell')">Cast a spell</button>
+    <button onclick="playerAction('shield')">Raise your shield</button>
     <script src="index.js"></script>
-    <button onclick="getEnemy()">Get enemy</button>
-    <button onclick="getRoomArt()">Get room</button>
-    <img id="card_art">
+    <!-- <button onclick="getEnemy()">Get enemy</button>
+    <button onclick="getRoomArt()">Get room</button> -->
+    <img id="card_art" />
   </body>
 </html>

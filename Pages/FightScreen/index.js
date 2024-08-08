@@ -9,24 +9,12 @@ async function getEnemy() {
   const enemy = await fetch("http://localhost:5114/api/enemy/" + currentRoom)
     .then((res) => res.json())
     .then((resbody) => resbody);
-  localStorage.setItem("enemy", JSON.stringify(enemy));
+  // localStorage.setItem("enemy", JSON.stringify(enemy));
   let cardArt = await fetch(enemy.imageUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
   document.getElementById("enemyphoto").src = cardArt;
   // document.body.style.backgroundImage = `url(${cardArt})`;
-}
-let spells = [];
-async function getSpells() {
-  spells = await fetch("http://localhost:5114/api/spell/")
-    .then((res) => res.json())
-    .then((resbody) => resbody);
-}
-let items = [];
-async function getItems() {
-  items = await fetch("http://localhost:5114/api/item/")
-    .then((res) => res.json())
-    .then((resbody) => resbody);
 }
 
 async function getRoomArt() {
@@ -42,57 +30,115 @@ async function getRoomArt() {
   document.body.style.backgroundImage = `url(${cardArt})`;
 }
 
-let enemyDefend = false;
-const enemyAction = (playerStance) => {
-  const action = Math.floor(Math.random() * 3);
-  switch (action) {
-    case 0:
-      // attack
-      if (!playerStance) {
-        player.Health -= enemy.Attack;
-      }
-      break;
-    case 1:
-      // defend
-      enemyDefend = true;
-      break;
-    case 2:
-      // charge attack
-      break;
-    default:
-      break;
-  }
-};
-
-const playerAction = (action) => {
-  switch (action) {
-    case 0:
-      // attack item
-      if (!enemyDefend) {
-        enemy.Health -= 1;
-      }
-      break;
-    case 1:
-      // attack lightning bolt
-      if (!enemyDefend) {
-        enemy.Health -= 2;
-      }
-      break;
-    case 2:
-      // defend
-      break;
-    default:
-      break;
-  }
-};
-const sword = () => {};
-const spell = () => {};
-const defend = () => {};
-let enemy = JSON.parse(localStorage.getItem("enemy"));
 let player = JSON.parse(localStorage.getItem("currentAccount")).ownedPlayer;
+let roomNumber = player.currentRoom - 1;
+let currentRoom, currentEnemy, currentItem, currentSpell;
+let combatState = true;
+let enemyDefend = false;
+let enemyStrong = false;
+
 const setUpFight = () => {
   getEnemy();
   getRoomArt();
-  getItems();
-  getSpells();
+  newCombatInfo("The fight begins!");
+  setCurrentRoom(roomNumber);
+  setCurrentEnemy(roomNumber);
+  setCurrentItem(roomNumber);
+  setCurrentSpell(roomNumber);
+};
+
+const enemyActionNew = (playerStance) => {
+  const action = Math.floor(Math.random() * 3);
+  if (action == 0) {
+    newCombatInfo("The enemy attacks...");
+    if (!playerStance) {
+      if (enemyStrong) {
+        newCombatInfo(
+          `and you take a devastating blow, receiving ${
+            currentEnemy.attack * 2
+          } damage!`
+        );
+        player.currentHealth -= currentEnemy.attack * 2;
+      } else {
+        newCombatInfo(`and you take ${currentEnemy.attack} damage!`);
+        player.currentHealth -= currentEnemy.attack;
+      }
+    } else {
+      newCombatInfo("but you manage to block and take no damage!");
+    }
+    enemyStrong = false;
+    enemyDefend = false;
+  } else if (action == 1) {
+    newCombatInfo("The enemy takes a defensive stance!");
+    enemyStrong = false;
+    enemyDefend = true;
+  } else if (action == 2) {
+    newCombatInfo("The enemy appears to be saving its strength!");
+    enemyDefend = false;
+    enemyStrong = true;
+  }
+  newCombatInfo(`You have ${player.currentHealth} health remaining.`);
+  endCombat();
+};
+
+const playerAction = (action) => {
+  let defend = false;
+  if (action == "sword") {
+    newCombatInfo("You swing your sword!");
+    if (!enemyDefend) {
+      currentEnemy.health -= currentItem.attack;
+      newCombatInfo(`You do ${currentItem.attack} damage!`);
+    } else {
+      newCombatInfo(`The enemy blocks!`);
+    }
+  } else if (action == "spell") {
+    newCombatInfo("You cast a spell!");
+    if (!enemyDefend) {
+      currentEnemy.health -= currentSpell.attack;
+      newCombatInfo(`You do ${currentSpell.attack} damage!`);
+    } else {
+      newCombatInfo(`The enemy blocks!`);
+    }
+  } else if (action == "shield") {
+    newCombatInfo("You raise your shield!");
+    defend = true;
+  }
+  newCombatInfo(`The enemy has ${currentEnemy.health} health remaining.`);
+  if (!endCombat()) {
+    enemyActionNew(defend);
+  }
+};
+
+const setCurrentRoom = (room) => {
+  currentRoom = JSON.parse(localStorage.getItem("rooms"))[room];
+};
+const setCurrentEnemy = (room) => {
+  currentEnemy = JSON.parse(localStorage.getItem("enemies"))[room];
+};
+const setCurrentItem = (room) => {
+  currentItem = JSON.parse(localStorage.getItem("items"))[room];
+};
+const setCurrentSpell = (room) => {
+  currentSpell = JSON.parse(localStorage.getItem("spells"))[room];
+};
+
+const newCombatInfo = (text) => {
+  let newInfo = document.createElement("p");
+  newInfo.innerText = text;
+  let toAppend = document.getElementById("textbox");
+  toAppend.appendChild(newInfo);
+};
+
+const endCombat = () => {
+  if (player.currentHealth <= 0 || currentEnemy.health <= 0) {
+    if (currentEnemy.health <= 0) {
+      newCombatInfo(`You defeated the ${currentEnemy.enemyName}!`);
+      roomNumber++;
+      setUpFight();
+    } else {
+      newCombatInfo("You died!");
+    }
+    return true;
+  }
+  return false;
 };
