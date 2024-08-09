@@ -4,63 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LoginOrRegister</title>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <section>
-      NavBar
-      <button>
-        <a href="../LoginRegisterScreen/index.html"> To Login/Register</a>
-      </button>
-      <button onclick="logout()">Logout</button>
-    </section>
-    <div>
-      <p>Login</p>
-      <form id="loginUser">
-        <label for="username">Username</label>
-        <input type="string" name="usernameLogin" id="usernameLogin" required />
+    <div id="navbarandloginlogout">
+      <section id="navbarsection">
+        <div id="gamelogo">Adventure Boy: Heroes & Monsters</div>
+        <div id="loginlogoutbuttons">
+          <button onclick="logout()">Logout</button>
+        </div>
+      </section>
+      <div id="loginlogoutarea">
+        <p class="loginandregisterheaders">Login</p>
+        <form id="loginUser">
+          <label for="username">Username</label>
+          <input
+            type="string"
+            name="usernameLogin"
+            id="usernameLogin"
+            required
+          />
 
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="passwordLogin"
-          id="passwordLogin"
-          required
-        />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="passwordLogin"
+            id="passwordLogin"
+            required
+          />
 
-        <input type="submit" value="login" />
-        <p id="LoginResponse"></p>
-      </form>
-    </div>
-    <div>
-      <p>Register</p>
-      <form id="registerUser">
-        <label for="username">Username</label>
-        <input
-          type="string"
-          name="usernameRegister"
-          id="usernameRegister"
-          required
-        />
+          <input type="submit" value="login" />
+          <p id="LoginResponse"></p>
+        </form>
 
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="passwordRegister"
-          id="passwordRegister"
-          required
-        />
+        <div>
+          <p class="loginandregisterheaders">Register</p>
+          <form id="registerUser">
+            <label for="username">Username</label>
+            <input
+              type="string"
+              name="usernameRegister"
+              id="usernameRegister"
+              required
+            />
 
-        <label for="firstnameRegister">First Name</label>
-        <input
-          type="string"
-          name="firstnameRegister"
-          id="firstnameRegister"
-          required
-        />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="passwordRegister"
+              id="passwordRegister"
+              required
+            />
 
-        <input type="submit" value="register" />
-      </form>
-      <p id="RegisterResponse"></p>
+            <label for="firstnameRegister">FirstName</label>
+            <input
+              type="string"
+              name="firstnameRegister"
+              id="firstnameRegister"
+              required
+            />
+
+            <input type="submit" value="register" />
+          </form>
+          <p id="RegisterResponse"></p>
+        </div>
+      </div>
     </div>
     <button hidden id="toFightScreen">
       <a href="../FightScreen/index.html"> To fight screen</a>

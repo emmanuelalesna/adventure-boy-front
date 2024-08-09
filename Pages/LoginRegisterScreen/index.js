@@ -43,27 +43,29 @@ const createPlayer = async (id, name) => {
 
 const getItems = () => {
   fetch("http://localhost:5114/api/item")
-  .then(res => res.json())
-  .then(resBody => localStorage.setItem("items", JSON.stringify(resBody)));
-}
+    .then((res) => res.json())
+    .then((resBody) => localStorage.setItem("items", JSON.stringify(resBody)));
+};
 
 const getSpells = () => {
   fetch("http://localhost:5114/api/spell")
-  .then(res => res.json())
-  .then(resBody => localStorage.setItem("spells", JSON.stringify(resBody)));
-}
+    .then((res) => res.json())
+    .then((resBody) => localStorage.setItem("spells", JSON.stringify(resBody)));
+};
 
 const getEnemies = () => {
   fetch("http://localhost:5114/api/enemy")
-  .then(res => res.json())
-  .then(resBody => localStorage.setItem("enemies", JSON.stringify(resBody)));
-}
+    .then((res) => res.json())
+    .then((resBody) =>
+      localStorage.setItem("enemies", JSON.stringify(resBody))
+    );
+};
 
 const getRooms = () => {
   fetch("http://localhost:5114/api/room")
-  .then(res => res.json())
-  .then(resBody => localStorage.setItem("rooms", JSON.stringify(resBody)));
-}
+    .then((res) => res.json())
+    .then((resBody) => localStorage.setItem("rooms", JSON.stringify(resBody)));
+};
 const userLoginForm = document.getElementById("loginUser");
 
 userLoginForm.addEventListener("submit", function (e) {
@@ -103,3 +105,12 @@ userLoginForm.addEventListener("submit", function (e) {
 const logout = () => {
   localStorage.clear();
 };
+
+// window.onload = async () => {
+//   let leftCardArt = await fetch(
+//     "https://api.scryfall.com/cards/named?fuzzy=end-the-festivities"
+//   )
+//     .then((res) => res.json())
+//     .then((resBody) => resBody.image_uris.art_crop);
+//   document.getElementById();
+// };
