@@ -37,6 +37,7 @@ const createPlayer = async (id, name) => {
   }).then((res) => {
     if (res.status == 200) {
       document.getElementById("RegisterResponse").innerText = "Player created!";
+      document.getElementById("registerFormDiv").hidden = true;
     }
   });
 };
@@ -87,7 +88,7 @@ userLoginForm.addEventListener("submit", function (e) {
       if (resBody != 404) {
         if (resBody.password == passwordLogin) {
           let displayedLoginInfo = document.getElementById("LoginResponse");
-          displayedLoginInfo.innerText = JSON.stringify(resBody);
+          displayedLoginInfo.innerText = "Login successful! Start fight by pressing the \"To fight screen\" button below.";
           localStorage.setItem("currentAccount", JSON.stringify(resBody));
           document.getElementById("toFightScreen").hidden = false;
           getItems();
