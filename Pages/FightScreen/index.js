@@ -83,7 +83,7 @@ const enemyActionNew = (playerStance) => {
   endCombat();
 };
 
-const playerAction = (action) => {
+const playerAction = async (action) => {
   let defend = false;
   if (action == "sword") {
     newCombatInfo("You swing your sword!");
@@ -112,7 +112,8 @@ const playerAction = (action) => {
     defend = true;
   }
   newCombatInfo(`The enemy has ${currentEnemy.health} health remaining.`);
-  if (!endCombat()) {
+  var combatValid = await endCombat();
+  if (!combatValid) {
     enemyActionNew(defend);
   }
 };
