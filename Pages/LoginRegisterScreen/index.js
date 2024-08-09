@@ -105,3 +105,12 @@ userLoginForm.addEventListener("submit", function (e) {
 const logout = () => {
   localStorage.clear();
 };
+
+// window.onload = async () => {
+//   let leftCardArt = await fetch(
+//     "https://api.scryfall.com/cards/named?fuzzy=end-the-festivities"
+//   )
+//     .then((res) => res.json())
+//     .then((resBody) => resBody.image_uris.art_crop);
+//   document.getElementById();
+// };
