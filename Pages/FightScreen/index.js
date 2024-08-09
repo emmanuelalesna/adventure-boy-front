@@ -1,16 +1,4 @@
 async function getEnemyArt(roomNumber) {
-  const enemy = await fetch(
-    "http://localhost:5114/api/enemy/" + (roomNumber + 1)
-  )
-    .then((res) => res.json())
-    .then((resbody) => resbody);
-  let cardArt = await fetch(enemy.imageUrl)
-    .then((res) => res.json())
-    .then((resBody) => resBody.image_uris.art_crop);
-  document.getElementById("enemyphoto").src = cardArt;
-}
-
-async function getEnemyArtAwait(roomNumber) {
   let enemy = await fetch(
     "http://localhost:5114/api/enemy/" + (roomNumber + 1)
   );
@@ -33,16 +21,15 @@ async function getRoomArt(roomNumber) {
 }
 
 let player = JSON.parse(localStorage.getItem("currentAccount")).ownedPlayer;
-let roomNumber = player.currentRoom - 1;
+let roomNumber = player.currentRoom;
 let currentRoom, currentEnemy, currentItem, currentSpell;
-let combatState = true;
 let enemyDefend = false;
 let enemyStrong = false;
 
 const setUpFight = () => {
   if (roomNumber <= 4) {
     clearCombatInfo();
-    getEnemyArtAwait(roomNumber);
+    getEnemyArt(roomNumber);
     getRoomArt(roomNumber);
     setCurrentRoom(roomNumber);
     setCurrentEnemy(roomNumber);
@@ -174,10 +161,10 @@ const endCombat = async () => {
         player.currentMana = 1;
         roomNumber = 0;
         newCombatInfo("You win!");
-        await updatePlayer(player.playerId, 1, 10, 1);
+        await updatePlayer(player.playerId, 0, 10, 1);
       } else {
-        player.currentHealth += roomNumber;
-        player.currentMana += roomNumber;
+        player.currentHealth += roomNumber + 1;
+        player.currentMana += roomNumber + 1;
         newCombatInfo(
           `You find a ${getItem(roomNumber).itemName} and a spellbook for ${
             getSpell(roomNumber).spellName
@@ -194,7 +181,7 @@ const endCombat = async () => {
       player.currentHealth = 10;
       player.currentMana = 1;
       roomNumber = 0;
-      await updatePlayer(player.playerId, 1, 10, 1);
+      await updatePlayer(player.playerId, 0, 10, 1);
     }
     document.getElementById("actions").hidden = true;
     document.getElementById("startFightButton").hidden = false;
@@ -224,7 +211,7 @@ const updatePlayer = async (id, room, health, mana) => {
 const logout = async () => {
   await updatePlayer(
     player.playerId,
-    roomNumber + 1,
+    roomNumber,
     player.currentHealth,
     player.currentMana
   );
