@@ -21,14 +21,14 @@ const loginUser = (e) => {
         if (resBody.password == passwordLogin) {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText =
-            'Login successful! Start fight by pressing the "To fight screen" button below.';
+            'Login successful! Start fight by pressing the "To fight screen" button.';
           localStorage.setItem("currentAccount", JSON.stringify(resBody));
           document.getElementById("toFightScreen").hidden = false;
           document.getElementById("registerFormDiv").hidden = true;
           getItems();
           getSpells();
           getEnemies();
-          getMethgetRooms();
+          getRooms();
         } else {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText = "Incorrect Password!";
