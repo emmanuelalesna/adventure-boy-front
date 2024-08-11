@@ -42,7 +42,31 @@ async function getRoomArt(roomNumber) {
   let cardArt = await fetch(roomUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
-  document.body.style.backgroundImage = `url(${cardArt})`;
+    document.getElementById("roomphoto").src = cardArt;
 }
 
-export {getItems, getSpells, getEnemies, getRooms, getEnemyArt, getRoomArt };
+async function getItemArt(roomNumber) {
+  const itemUrl = await fetch(
+    "http://localhost:5114/api/item/" + (roomNumber + 1)
+  )
+    .then((res) => res.json())
+    .then((resbody) => resbody.imageUrl);
+  let cardArt = await fetch(itemUrl)
+    .then((res) => res.json())
+    .then((resBody) => resBody.image_uris.art_crop);
+  document.getElementById("playeritemphoto").src = cardArt;
+}
+
+async function getSpellArt(roomNumber) {
+  const spellUrl = await fetch(
+    "http://localhost:5114/api/spell/" + (roomNumber + 1)
+  )
+    .then((res) => res.json())
+    .then((resbody) => resbody.imageUrl);
+  let cardArt = await fetch(spellUrl)
+    .then((res) => res.json())
+    .then((resBody) => resBody.image_uris.art_crop);
+  document.getElementById("playerspellphoto").src = cardArt;
+}
+
+export {getItems, getSpells, getEnemies, getRooms, getEnemyArt, getRoomArt, getItemArt, getSpellArt };

@@ -12,6 +12,8 @@ const setUpFight = () => {
     clearCombatInfo();
     getMethods.getEnemyArt(roomNumber);
     getMethods.getRoomArt(roomNumber);
+    getMethods.getItemArt(roomNumber);
+    getMethods.getSpellArt(roomNumber);
     setCurrentEnemy(roomNumber);
     setCurrentItem(roomNumber);
     setCurrentSpell(roomNumber);
@@ -66,7 +68,6 @@ const enemyAction = (playerStance) => {
 const playerAction = async (e) => {
   let defend = false;
   const action = e.target.id;
-  console.log(action);
   if (action == "swordButton") {
     newCombatInfo("You swing your sword!");
     if (!enemyDefend) {
@@ -145,6 +146,7 @@ const newCombatInfo = (text) => {
   newInfo.innerText = text;
   let toAppend = document.getElementById("textbox");
   toAppend.appendChild(newInfo);
+  toAppend.scrollTop = toAppend.scrollHeight;
 };
 
 const clearCombatInfo = () => {

@@ -33,9 +33,14 @@
             required
           />
 
-          <button type="submit" value="login" >Login</button>
+          <button type="submit" value="login">Login</button>
         </form>
 
+        <button hidden id="toFightScreen">
+          <a href="../FightScreen/index.html" id="toFightScreenLink">
+            To fight screen</a
+          >
+        </button>
         <p id="LoginResponse"></p>
         <div id="registerFormDiv">
           <p class="loginandregisterheaders">Register</p>
@@ -63,17 +68,12 @@
               id="firstnameRegister"
               required
             />
-            <button type="submit" value="register" >
-              Register
-            </button>
+            <button type="submit" value="register">Register</button>
           </form>
         </div>
         <p id="RegisterResponse"></p>
       </div>
     </div>
-    <button hidden id="toFightScreen">
-      <a href="../FightScreen/index.html"> To fight screen</a>
-    </button>
     <script type="module" src="LoginRegister.js"></script>
   </body>
 </html>

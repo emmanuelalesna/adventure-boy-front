@@ -1,0 +1,44 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FightScreen</title>
+    <style>
+      body {
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      p {
+        color: white;
+      }
+      #battleText {
+        color: white;
+      }
+      #navbarsection {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="startFightButton">Start fight</button>
+    <section id="navbarsection">
+      NavBar
+      <button id="logoutButton">Logout</button>
+    </section>
+    <section>
+      <img id="enemyphoto" />
+    </section>
+    <div id="battleText">
+      Battle Information:
+      <section id="textbox"></section>
+    </div>
+    <div id="actions">
+      <button id="swordButton">Swing your sword</button>
+      <button id="spellButton">Cast a spell</button>
+      <button id="shieldButton">Raise your shield</button>
+    </div>
+    <script type="module" src="fight.js"></script>
+    <img id="card_art" />
+  </body>
+</html> -->

@@ -1,5 +1,11 @@
-body,
-html {
+body {
+  background-image: url("https://i.pinimg.com/originals/22/ab/32/22ab32754921f4e82b96bd39bfb33779.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: white;
+}
+html,
+body {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -68,5 +74,19 @@ html {
 
 #LoginResponse,
 #RegisterResponse {
+  font-size: 1.5rem;
+}
+
+#toFightScreenLink {
+  padding: 1px 6px;
+  border: 1px outset buttonborder;
+  border-radius: 3px;
+  color: buttontext;
+  background-color: buttonface;
+  text-decoration: none;
+  width: 100%;
+}
+
+#toFightScreen {
   font-size: 1.5rem;
 }
