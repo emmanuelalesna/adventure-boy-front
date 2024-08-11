@@ -11,7 +11,7 @@
       <section id="navbarsection">
         <div id="gamelogo">Adventure Boy: Heroes & Monsters</div>
         <div id="loginlogoutbuttons">
-          <button onclick="logout()">Logout</button>
+          <button id="logoutButton">Logout</button>
         </div>
       </section>
       <div id="loginlogoutarea">
@@ -33,10 +33,10 @@
             required
           />
 
-          <input type="submit" value="login" />
+          <button type="submit" value="login" >Login</button>
         </form>
 
-          <p id="LoginResponse"></p>
+        <p id="LoginResponse"></p>
         <div id="registerFormDiv">
           <p class="loginandregisterheaders">Register</p>
           <form id="registerUser">
@@ -63,9 +63,10 @@
               id="firstnameRegister"
               required
             />
-            <input type="submit" value="register" />
+            <button type="submit" value="register" >
+              Register
+            </button>
           </form>
-          
         </div>
         <p id="RegisterResponse"></p>
       </div>
@@ -73,6 +74,6 @@
     <button hidden id="toFightScreen">
       <a href="../FightScreen/index.html"> To fight screen</a>
     </button>
-    <script src="index.js"></script>
+    <script type="module" src="LoginRegister.js"></script>
   </body>
 </html>

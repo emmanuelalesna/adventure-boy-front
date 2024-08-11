@@ -21,10 +21,10 @@
     </style>
   </head>
   <body>
-    <button onclick="setUpFight()" id="startFightButton">Start fight</button>
+    <button id="startFightButton">Start fight</button>
     <section id="navbarsection">
       NavBar
-      <button onclick="logout()">Logout</button>
+      <button id="logoutButton">Logout</button>
     </section>
     <section>
       <img id="enemyphoto" />
@@ -34,13 +34,11 @@
       <section id="textbox"></section>
     </div>
     <div id="actions">
-      <button onclick="playerAction('sword')">Swing your sword</button>
-      <button onclick="playerAction('spell')">Cast a spell</button>
-      <button onclick="playerAction('shield')">Raise your shield</button>
+      <button id="swordButton">Swing your sword</button>
+      <button id="spellButton">Cast a spell</button>
+      <button id="shieldButton">Raise your shield</button>
     </div>
-    <script src="index.js"></script>
-    <!-- <button onclick="getEnemyArt(0)">Get enemy</button>
-    <button onclick="getRoomArt(0)">Get room</button> -->
+    <script type="module" src="fight.js"></script>
     <img id="card_art" />
   </body>
 </html>
