@@ -4,43 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FightScreen</title>
-    <style>
-      body {
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-      }
-      p {
-        color: white;
-      }
-      #battleText {
-        color: white;
-      }
-      #navbarsection {
-        color: white;
-      }
-    </style>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <button onclick="setUpFight()" id="startFightButton">Start fight</button>
-    <section id="navbarsection">
-      NavBar
-      <button onclick="logout()">Logout</button>
-    </section>
-    <section>
-      <img id="enemyphoto" />
-    </section>
-    <div id="battleText">
-      Battle Information:
-      <section id="textbox"></section>
+    <div id="navbarandfightscreen">
+      <section id="navbarsection">
+        <div id="gamelogo">Adventure Boy: Heroes & Monsters</div>
+        <div id="loginlogoutbuttons">
+          <button id="logoutButton">Logout</button>
+        </div>
+      </section>
+
+      <button id="startFightButton">Start fight</button>
+      <div id="fightsectionandphotos">
+        <section id="leftfightsectionphotos">
+          <div class="imageSurrounder">
+            <img id="enemyphoto" />
+          </div>
+        </section>
+        <section id="fightsection">
+          <div class="imageSurrounder">
+            <img id="roomphoto" />
+          </div>
+          <section id="battlechoices">
+            <div id="battleText">
+              Battle Information:
+
+              <section id="textbox"></section>
+            </div>
+            <div id="actions">
+              <button id="swordButton" class="fightButton">
+                Swing your sword
+              </button>
+              <button id="spellButton" class="fightButton">Cast a spell</button>
+              <button id="shieldButton" class="fightButton">
+                Raise your shield
+              </button>
+            </div>
+          </section>
+
+          <img id="card_art" />
+        </section>
+        <section id="rightfightsectionphotos">
+          <div class="imageSurrounder">
+            <img id="playeritemphoto" />
+          </div>
+          <div class="imageSurrounder">
+            <img id="playerspellphoto" />
+          </div>
+        </section>
+      </div>
     </div>
-    <div id="actions">
-      <button onclick="playerAction('sword')">Swing your sword</button>
-      <button onclick="playerAction('spell')">Cast a spell</button>
-      <button onclick="playerAction('shield')">Raise your shield</button>
-    </div>
-    <script src="index.js"></script>
-    <!-- <button onclick="getEnemyArt(0)">Get enemy</button>
-    <button onclick="getRoomArt(0)">Get room</button> -->
-    <img id="card_art" />
+    <script type="module" src="fight.js"></script>
   </body>
 </html>

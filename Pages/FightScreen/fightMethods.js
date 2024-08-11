@@ -1,37 +1,19 @@
-async function getEnemyArt(roomNumber) {
-  let enemy = await fetch(
-    "http://localhost:5114/api/enemy/" + (roomNumber + 1)
-  );
-  enemy = await enemy.json();
-  let cardArt = await fetch(enemy.imageUrl);
-  cardArt = (await cardArt.json()).image_uris.art_crop;
-  document.getElementById("enemyphoto").src = cardArt;
-}
-
-async function getRoomArt(roomNumber) {
-  const roomUrl = await fetch(
-    "http://localhost:5114/api/room/" + (roomNumber + 1)
-  )
-    .then((res) => res.json())
-    .then((resbody) => resbody.imageUrl);
-  let cardArt = await fetch(roomUrl)
-    .then((res) => res.json())
-    .then((resBody) => resBody.image_uris.art_crop);
-  document.body.style.backgroundImage = `url(${cardArt})`;
-}
+import * as getMethods from "../getMethods.js";
+import { updatePlayer } from "../playerMethods.js";
 
 let player = JSON.parse(localStorage.getItem("currentAccount")).ownedPlayer;
 let roomNumber = player.currentRoom;
-let currentRoom, currentEnemy, currentItem, currentSpell;
+let currentEnemy, currentItem, currentSpell;
 let enemyDefend = false;
 let enemyStrong = false;
 
 const setUpFight = () => {
   if (roomNumber <= 4) {
     clearCombatInfo();
-    getEnemyArt(roomNumber);
-    getRoomArt(roomNumber);
-    setCurrentRoom(roomNumber);
+    getMethods.getEnemyArt(roomNumber);
+    getMethods.getRoomArt(roomNumber);
+    getMethods.getItemArt(roomNumber);
+    getMethods.getSpellArt(roomNumber);
     setCurrentEnemy(roomNumber);
     setCurrentItem(roomNumber);
     setCurrentSpell(roomNumber);
@@ -47,7 +29,7 @@ const setUpFight = () => {
   document.getElementById("startFightButton").hidden = true;
 };
 
-const enemyActionNew = (playerStance) => {
+const enemyAction = (playerStance) => {
   const action = Math.floor(Math.random() * 3);
   if (action == 0) {
     newCombatInfo("The enemy attacks...");
@@ -83,9 +65,10 @@ const enemyActionNew = (playerStance) => {
   endCombat();
 };
 
-const playerAction = async (action) => {
+const playerAction = async (e) => {
   let defend = false;
-  if (action == "sword") {
+  const action = e.target.id;
+  if (action == "swordButton") {
     newCombatInfo("You swing your sword!");
     if (!enemyDefend) {
       currentEnemy.health -= currentItem.attack;
@@ -93,7 +76,7 @@ const playerAction = async (action) => {
     } else {
       newCombatInfo(`The enemy blocks!`);
     }
-  } else if (action == "spell") {
+  } else if (action == "spellButton") {
     newCombatInfo("You cast a spell...");
     if (player.currentMana - currentSpell.manaCost < 0) {
       player.currentMana = 0;
@@ -107,47 +90,14 @@ const playerAction = async (action) => {
         newCombatInfo(`but the enemy blocks!`);
       }
     }
-  } else if (action == "shield") {
+  } else if (action == "shieldButton") {
     newCombatInfo("You raise your shield!");
     defend = true;
   }
   newCombatInfo(`The enemy has ${currentEnemy.health} health remaining.`);
   var combatValid = await endCombat();
   if (!combatValid) {
-    enemyActionNew(defend);
-  }
-};
-
-const setCurrentRoom = (room) => {
-  currentRoom = JSON.parse(localStorage.getItem("rooms"))[room];
-};
-const setCurrentEnemy = (room) => {
-  currentEnemy = JSON.parse(localStorage.getItem("enemies"))[room];
-};
-const setCurrentItem = (room) => {
-  currentItem = JSON.parse(localStorage.getItem("items"))[room];
-};
-const setCurrentSpell = (room) => {
-  currentSpell = JSON.parse(localStorage.getItem("spells"))[room];
-};
-const getItem = (room) => {
-  return JSON.parse(localStorage.getItem("items"))[room];
-};
-const getSpell = (room) => {
-  return JSON.parse(localStorage.getItem("spells"))[room];
-};
-
-const newCombatInfo = (text) => {
-  let newInfo = document.createElement("p");
-  newInfo.innerText = text;
-  let toAppend = document.getElementById("textbox");
-  toAppend.appendChild(newInfo);
-};
-
-const clearCombatInfo = () => {
-  let element = document.getElementById("textbox");
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
+    enemyAction(defend);
   }
 };
 
@@ -191,25 +141,39 @@ const endCombat = async () => {
   return false;
 };
 
-const updatePlayer = async (id, room, health, mana) => {
-  const player = {
-    PlayerId: id,
-    Name: "random",
-    CurrentRoom: room,
-    CurrentHealth: health,
-    CurrentMana: mana,
-  };
-  let req = fetch("http://localhost:5114/api/player", {
-    method: "PATCH",
-    body: JSON.stringify(player),
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  let res = await req;
+const newCombatInfo = (text) => {
+  let newInfo = document.createElement("p");
+  newInfo.innerText = text;
+  let toAppend = document.getElementById("textbox");
+  toAppend.appendChild(newInfo);
+  toAppend.scrollTop = toAppend.scrollHeight;
 };
 
-const logout = async () => {
+const clearCombatInfo = () => {
+  let element = document.getElementById("textbox");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
+const setCurrentEnemy = (room) => {
+  currentEnemy = JSON.parse(localStorage.getItem("enemies"))[room];
+};
+const setCurrentItem = (room) => {
+  currentItem = JSON.parse(localStorage.getItem("items"))[room];
+};
+const setCurrentSpell = (room) => {
+  currentSpell = JSON.parse(localStorage.getItem("spells"))[room];
+};
+
+const getItem = (room) => {
+  return JSON.parse(localStorage.getItem("items"))[room];
+};
+const getSpell = (room) => {
+  return JSON.parse(localStorage.getItem("spells"))[room];
+};
+
+const logoutAndSavePlayer = async () => {
   await updatePlayer(
     player.playerId,
     roomNumber,
@@ -220,4 +184,4 @@ const logout = async () => {
   window.location.href = "../LoginRegisterScreen/index.html";
 };
 
-//TODO: implement mana, save user data, add item and spell images, better integrate enemy/item names
+export { setUpFight, logoutAndSavePlayer, playerAction };

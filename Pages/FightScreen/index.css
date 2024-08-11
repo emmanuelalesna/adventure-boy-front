@@ -1,0 +1,126 @@
+body {
+  background-image: url("https://wallpaperaccess.com/full/5887939.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: white;
+}
+html,body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+#navbarandfightscreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ensure it fills the width of the viewport */
+  height: 100%; /* Ensure it fills the height of the viewport */
+}
+
+#navbarsection {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 98%;
+  padding: 10px;
+  border-bottom: solid 0.1rem;
+}
+
+#gamelogo {
+  flex: 1;
+  width: 50%;
+  text-align: left;
+  font-size: 2rem;
+}
+#loginlogoutbuttons {
+  flex: 1;
+  width: 50%;
+  text-align: right;
+  font-size: 2rem;
+}
+
+#fightsectionandphotos {
+  flex: 10;
+  display: flex;
+  flex-direction: row;
+  width: 98%;
+}
+
+#leftfightsectionphotos {
+  flex: 5;
+  border: 0.1rem solid lightblue;
+}
+
+#rightfightsectionphotos {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid lightblue;
+}
+
+.imageSurrounder {
+  flex: 1;
+}
+
+#playeritemphoto {
+  max-width: 100%;
+  max-height: 100%;
+}
+#playerspellphoto {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#enemyphoto {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#fightsection {
+  display: flex;
+  border: 0.1rem solid lightblue;
+  flex: 20;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 2rem;
+
+  justify-content: center;
+}
+
+#roomphoto {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#battlechoices {
+  flex: 4rem;
+}
+
+#battleText {
+  font-size: 2rem;
+  border: solid 0.1rem;
+  margin: 1rem;
+}
+#textbox {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  max-height: 24rem;
+  margin: 0.5rem;
+}
+
+#startFightButton {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.fightButton {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
