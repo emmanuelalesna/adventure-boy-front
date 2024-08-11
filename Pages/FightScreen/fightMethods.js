@@ -100,20 +100,6 @@ const playerAction = async (e) => {
   }
 };
 
-const newCombatInfo = (text) => {
-  let newInfo = document.createElement("p");
-  newInfo.innerText = text;
-  let toAppend = document.getElementById("textbox");
-  toAppend.appendChild(newInfo);
-};
-
-const clearCombatInfo = () => {
-  let element = document.getElementById("textbox");
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-};
-
 const endCombat = async () => {
   if (player.currentHealth <= 0 || currentEnemy.health <= 0) {
     if (currentEnemy.health <= 0) {
@@ -154,15 +140,18 @@ const endCombat = async () => {
   return false;
 };
 
-const logout = async () => {
-  await updatePlayer(
-    player.playerId,
-    roomNumber,
-    player.currentHealth,
-    player.currentMana
-  );
-  localStorage.clear();
-  window.location.href = "../LoginRegisterScreen/index.html";
+const newCombatInfo = (text) => {
+  let newInfo = document.createElement("p");
+  newInfo.innerText = text;
+  let toAppend = document.getElementById("textbox");
+  toAppend.appendChild(newInfo);
+};
+
+const clearCombatInfo = () => {
+  let element = document.getElementById("textbox");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 };
 
 const setCurrentEnemy = (room) => {
@@ -182,4 +171,15 @@ const getSpell = (room) => {
   return JSON.parse(localStorage.getItem("spells"))[room];
 };
 
-export { setUpFight, logout, playerAction };
+const logoutAndSavePlayer = async () => {
+  await updatePlayer(
+    player.playerId,
+    roomNumber,
+    player.currentHealth,
+    player.currentMana
+  );
+  localStorage.clear();
+  window.location.href = "../LoginRegisterScreen/index.html";
+};
+
+export { setUpFight, logoutAndSavePlayer, playerAction };

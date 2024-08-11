@@ -31,7 +31,7 @@ const updatePlayer = async (id, room, health, mana) => {
       "Content-type": "application/json",
     },
   });
-  let res = await req;
+  await req;
 };
 
 export {createPlayer, updatePlayer}

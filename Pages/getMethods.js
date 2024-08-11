@@ -45,4 +45,4 @@ async function getRoomArt(roomNumber) {
   document.body.style.backgroundImage = `url(${cardArt})`;
 }
 
-export { getItems, getSpells, getEnemies, getRooms, getEnemyArt, getRoomArt };
+export {getItems, getSpells, getEnemies, getRooms, getEnemyArt, getRoomArt };

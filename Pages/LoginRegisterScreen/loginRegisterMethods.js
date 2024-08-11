@@ -1,5 +1,5 @@
-import * as getMethods from "../getMethods.js";
-import {createPlayer} from '../playerMethods.js'
+import { getItems, getSpells, getEnemies, getRooms } from "../getMethods.js";
+import { createPlayer } from "../playerMethods.js";
 
 // login user
 const loginUser = (e) => {
@@ -25,10 +25,10 @@ const loginUser = (e) => {
           localStorage.setItem("currentAccount", JSON.stringify(resBody));
           document.getElementById("toFightScreen").hidden = false;
           document.getElementById("registerFormDiv").hidden = true;
-          getMethods.getItems();
-          getMethods.getSpells();
-          getMethods.getEnemies();
-          getMethods.getRooms();
+          getItems();
+          getSpells();
+          getEnemies();
+          getMethgetRooms();
         } else {
           let displayedLoginInfo = document.getElementById("LoginResponse");
           displayedLoginInfo.innerText = "Incorrect Password!";
