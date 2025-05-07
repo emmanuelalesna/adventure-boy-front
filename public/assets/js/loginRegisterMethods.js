@@ -1,5 +1,5 @@
-import { getItems, getSpells, getEnemies, getRooms } from "../getMethods.js";
-import { createPlayer } from "../playerMethods.js";
+import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.js";
+import { createPlayer } from "./playerMethods.js";
 
 // login user
 const loginUser = (e) => {

@@ -1,5 +1,5 @@
-import * as getMethods from "../getMethods.js";
-import { updatePlayer } from "../playerMethods.js";
+import * as getMethods from "./getMethods.js";
+import { updatePlayer } from "./playerMethods.js";
 
 let player = JSON.parse(localStorage.getItem("currentAccount")).ownedPlayer;
 let roomNumber = player.currentRoom;

@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "vite":"vite",
     "test": "jest --coverage"
   },
   "devDependencies": {
@@ -11,7 +12,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "vite": "^6.3.5"
   },
   "dependencies": {
     "babel-plugin-transform-import-meta": "^2.2.1"
