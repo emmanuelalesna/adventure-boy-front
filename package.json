@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "vite":"vite",
+    "dev":"vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "jest --coverage"
   },
   "devDependencies": {

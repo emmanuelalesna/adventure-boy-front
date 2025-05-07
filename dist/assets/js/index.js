@@ -1,4 +1,4 @@
-import { registerUser, loginUser, logoutUser } from "./loginRegisterMethods.js";
+import { registerUser, loginUser, logoutUser } from "/assets/js/loginRegisterMethods.js";
 
 document.getElementById("logoutButton").addEventListener("click", logoutUser);
 
