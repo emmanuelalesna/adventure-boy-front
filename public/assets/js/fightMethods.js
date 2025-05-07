@@ -134,6 +134,7 @@ const endCombat = async () => {
       roomNumber = 0;
       await updatePlayer(player.playerId, 0, 10, 1);
     }
+    enemyStrong = false;
     document.getElementById("actions").hidden = true;
     document.getElementById("startFightButton").hidden = false;
     return true;
