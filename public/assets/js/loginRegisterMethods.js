@@ -1,5 +1,6 @@
 import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.js";
 import { createPlayer } from "./playerMethods.js";
+import { accountEndpoint } from "../url.json";
 
 // login user
 const loginUser = (e) => {
@@ -7,7 +8,7 @@ const loginUser = (e) => {
   const usernameLogin = e.target.elements["usernameLogin"].value;
   const passwordLogin = e.target.elements["passwordLogin"].value;
 
-  fetch("http://localhost:5114/api/account/" + usernameLogin)
+  fetch(urlBoy + accountEndpoint + usernameLogin)
     .then((res) => {
       if (res.status == 404) {
         let displayedLoginInfo = document.getElementById("LoginResponse");
@@ -45,7 +46,7 @@ const registerUser = (e) => {
     Password: e.target.elements["passwordRegister"].value,
   };
 
-  fetch("http://localhost:5114/api/account", {
+  fetch(urlBoy + accountEndpoint, {
     method: "POST",
     body: JSON.stringify(newUser),
     headers: {

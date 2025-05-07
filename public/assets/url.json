@@ -1,0 +1,9 @@
+{
+  "urlBoy": "http://localhost:8080/",
+  "itemEndpoint": "api/item/",
+  "spellEndpoint": "api/spell/",
+  "enemyEndpoint": "api/enemy/",
+  "roomEndpoint": "api/room/",
+  "accountEndpoint": "api/account/",
+  "playerEndpoint": "api/player"
+}

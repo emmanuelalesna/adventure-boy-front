@@ -1,9 +1,11 @@
+import { playerEndpoint } from "../url.json";
+
 const createPlayer = async (id, name) => {
   const player = {
     PlayerId: id,
     Name: name,
   };
-  fetch("http://localhost:5114/api/player", {
+  fetch(urlBoy + playerEndpoint, {
     method: "POST",
     body: JSON.stringify(player),
     headers: {
@@ -24,7 +26,7 @@ const updatePlayer = async (id, room, health, mana) => {
     CurrentHealth: health,
     CurrentMana: mana,
   };
-  let req = fetch("http://localhost:5114/api/player", {
+  let req = fetch(urlBoy + playerEndpoint, {
     method: "PATCH",
     body: JSON.stringify(player),
     headers: {
@@ -34,4 +36,4 @@ const updatePlayer = async (id, room, health, mana) => {
   await req;
 };
 
-export {createPlayer, updatePlayer}
+export { createPlayer, updatePlayer };
