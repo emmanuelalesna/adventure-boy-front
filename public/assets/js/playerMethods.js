@@ -1,4 +1,6 @@
-import { playerEndpoint } from "../url.json";
+import apiUrl from "./url.js";
+
+const { urlBoy, playerEndpoint } = apiUrl;
 
 const createPlayer = async (id, name) => {
   const player = {

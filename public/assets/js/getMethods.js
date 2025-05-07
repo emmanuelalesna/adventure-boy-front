@@ -1,10 +1,7 @@
-import {
-  urlBoy,
-  itemEndpoint,
-  spellEndpoint,
-  enemyEndpoint,
-  roomEndpoint,
-} from "../url.json";
+import apiUrl from "./url.js";
+
+const { urlBoy, itemEndpoint, spellEndpoint, enemyEndpoint, roomEndpoint } =
+  apiUrl;
 
 const getItems = () => {
   fetch(urlBoy + itemEndpoint)
