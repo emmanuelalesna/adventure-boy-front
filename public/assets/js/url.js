@@ -1,5 +1,5 @@
 export default {
-  urlBoy: "http://localhost:8080/",
+  urlBoy: "https://adventure-boy-back-2-dphugvgsh7hbdxh2.eastus2-01.azurewebsites.net/",
   itemEndpoint: "api/item/",
   spellEndpoint: "api/spell/",
   enemyEndpoint: "api/enemy/",
