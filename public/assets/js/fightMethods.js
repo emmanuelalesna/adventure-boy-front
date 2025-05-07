@@ -181,7 +181,7 @@ const logoutAndSavePlayer = async () => {
     player.currentMana
   );
   localStorage.clear();
-  window.location.href = "../LoginRegisterScreen/index.html";
+  window.location.href = "./index.html";
 };
 
 export { setUpFight, logoutAndSavePlayer, playerAction };
