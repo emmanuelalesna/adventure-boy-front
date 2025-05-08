@@ -1,5 +1,4 @@
 import apiUrl from "./url.js";
-
 const { urlBoy, loginEndpoint } = apiUrl;
 
 const loginRequest = (user) => {
@@ -7,7 +6,8 @@ const loginRequest = (user) => {
   if (username && password) {
     return fetch(urlBoy + loginEndpoint, {
       method: "POST",
-      body: new URLSearchParams({ username, password }),
+      body: JSON.stringify({ username, password }),
+      headers: {"Content-Type": "application/json"}
     });
   } else {
     console.log(error);
