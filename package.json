@@ -1,7 +1,9 @@
 {
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc -b",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest --coverage"
   },
@@ -9,6 +11,8 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@testing-library/jest-dom": "^6.4.8",
+    "@types/istanbul-lib-report": "^3.0.3",
+    "@types/yargs-parser": "^21.0.3",
     "babel": "^6.23.0",
     "babel-jest": "^29.7.0",
     "eslint": "^9.26.0",
@@ -20,8 +24,6 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "@types/istanbul-lib-report": "^3.0.3",
-    "@types/yargs-parser": "^21.0.3",
     "babel-plugin-transform-import-meta": "^2.2.1"
   }
 }

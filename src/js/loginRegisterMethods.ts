@@ -1,10 +1,8 @@
 import { createPlayer } from "./playerMethods.js";
-import apiUrl from "./url.js";
-
-const { urlBoy, accountEndpoint } = apiUrl;
+import { urlBoy, accountEndpoint } from "./url.json";
 
 //register user
-const registerUser = async (e) => {
+const registerUser = async (e: any) => {
   e.preventDefault();
   const newUser = {
     Username: e.target.elements["usernameRegister"].value,

@@ -1,8 +1,6 @@
-import apiUrl from "./url.js";
+import { urlBoy, playerEndpoint } from "./url.json";
 
-const { urlBoy, playerEndpoint } = apiUrl;
-
-const createPlayer = async (id, name) => {
+const createPlayer = async (id: number, name: string) => {
   const player = {
     PlayerId: id,
     Name: name,
@@ -15,12 +13,18 @@ const createPlayer = async (id, name) => {
     },
   }).then((res) => {
     if (res.status == 200) {
-      document.getElementById("RegisterResponse").innerText = "Player created!";
+      let RegisterResponse = document.getElementById("RegisterResponse");
+      if (RegisterResponse) RegisterResponse.innerText = "Player created!";
     }
   });
 };
 
-const updatePlayer = async (id, room, health, mana) => {
+const updatePlayer = async (
+  id: number,
+  room: number,
+  health: number,
+  mana: number
+) => {
   const player = {
     PlayerId: id,
     Name: "random",

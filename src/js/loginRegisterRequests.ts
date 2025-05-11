@@ -1,7 +1,5 @@
-import apiUrl from "./url.js";
-import { User } from "./user.js";
-const { urlBoy, loginEndpoint } = apiUrl;
-
+import { urlBoy, loginEndpoint } from "./url.json";
+import type { User } from "./User.ts";
 
 const loginRequest = (user: User) => {
   const { username, password } = user;
@@ -16,6 +14,6 @@ const loginRequest = (user: User) => {
   }
 };
 
-const registerRequest = (user: User) => {};
+const registerRequest = () => {};
 
 export { loginRequest, registerRequest };

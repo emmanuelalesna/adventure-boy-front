@@ -1,7 +1,10 @@
-import apiUrl from "./url.js";
-
-const { urlBoy, itemEndpoint, spellEndpoint, enemyEndpoint, roomEndpoint } =
-  apiUrl;
+import {
+  urlBoy,
+  itemEndpoint,
+  spellEndpoint,
+  enemyEndpoint,
+  roomEndpoint,
+} from "./url.json";
 
 const getItems = () => {
   fetch(urlBoy + itemEndpoint)
@@ -28,42 +31,50 @@ const getRooms = () => {
     .then((resBody) => localStorage.setItem("rooms", JSON.stringify(resBody)));
 };
 
-async function getEnemyArt(roomNumber) {
-  let enemy = await fetch(urlBoy + enemyEndpoint + (roomNumber + 1));
-  enemy = await enemy.json();
-  let cardArt = await fetch(enemy.imageUrl);
-  cardArt = (await cardArt.json()).image_uris.art_crop;
-  document.getElementById("enemyphoto").src = cardArt;
+async function getEnemyArt(roomNumber: number) {
+  const enemy = await fetch(urlBoy + enemyEndpoint + (roomNumber + 1));
+  let enemyBody = await enemy.json();
+  let cardArt = await fetch(enemyBody.imageUrl);
+  let cardArtBody = (await cardArt.json()).image_uris.art_crop;
+  const enemyPhoto = document.getElementById("enemyphoto") as HTMLImageElement;
+  enemyPhoto.src = cardArtBody;
 }
 
-async function getRoomArt(roomNumber) {
+async function getRoomArt(roomNumber: number) {
   const roomUrl = await fetch(urlBoy + roomEndpoint + (roomNumber + 1))
     .then((res) => res.json())
     .then((resbody) => resbody.imageUrl);
   let cardArt = await fetch(roomUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
-  document.getElementById("roomphoto").src = cardArt;
+  const roomPhoto = document.getElementById("roomphoto") as HTMLImageElement;
+  roomPhoto.src = cardArt;
 }
 
-async function getItemArt(roomNumber) {
+async function getItemArt(roomNumber: number) {
   const itemUrl = await fetch(urlBoy + itemEndpoint + (roomNumber + 1))
     .then((res) => res.json())
     .then((resbody) => resbody.imageUrl);
   let cardArt = await fetch(itemUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
-  document.getElementById("playeritemphoto").src = cardArt;
+  const playerItemPhoto = document.getElementById(
+    "playeritemphoto"
+  ) as HTMLImageElement;
+  playerItemPhoto.src = cardArt;
 }
 
-async function getSpellArt(roomNumber) {
+async function getSpellArt(roomNumber: number) {
   const spellUrl = await fetch(urlBoy + spellEndpoint + (roomNumber + 1))
     .then((res) => res.json())
     .then((resbody) => resbody.imageUrl);
   let cardArt = await fetch(spellUrl)
     .then((res) => res.json())
     .then((resBody) => resBody.image_uris.art_crop);
-  document.getElementById("playerspellphoto").src = cardArt;
+  const playerSpellPhoto = document.getElementById(
+    "playerspellphoto"
+  ) as HTMLImageElement;
+  playerSpellPhoto.src = cardArt;
 }
 
 export {
