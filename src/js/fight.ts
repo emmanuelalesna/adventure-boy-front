@@ -1,3 +1,6 @@
+import "../css/fight.css";
+import fight_bg from "../assets/fight_bg.jpg";
+
 import {
   setUpFight,
   logoutAndSavePlayer,
@@ -28,3 +31,5 @@ const shieldButton = document.getElementById("shieldButton");
 if (shieldButton) {
   shieldButton.addEventListener("click", playerAction);
 }
+
+document.body.style.backgroundImage = `url("${fight_bg}")`

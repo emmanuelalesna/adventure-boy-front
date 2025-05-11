@@ -1,6 +1,8 @@
-import { logoutUser, registerUser } from "./src/js/loginRegisterMethods.ts";
-import { getItems, getSpells, getEnemies, getRooms } from "./src/js/getMethods.ts";
-import { loginRequest } from "./src/js/loginRegisterRequests.ts";
+import { logoutUser, registerUser } from "./loginRegisterMethods.ts";
+import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.ts";
+import { loginRequest } from "./loginRegisterRequests.ts";
+import "../css/index.css";
+import home_bg from "../assets/home_bg.jpg";
 
 // login user
 const loginUser = async (e: any) => {
@@ -51,3 +53,5 @@ if (logoutButton) logoutButton.addEventListener("click", logoutUser);
 if (registerUserForm) registerUserForm.addEventListener("submit", registerUser);
 
 if (loginUserForm) loginUserForm.addEventListener("submit", loginUser);
+
+document.body.style.backgroundImage = `url("${home_bg}")`;
