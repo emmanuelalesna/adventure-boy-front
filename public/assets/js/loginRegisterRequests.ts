@@ -1,18 +1,21 @@
 import apiUrl from "./url.js";
+import { User } from "./user.js";
 const { urlBoy, loginEndpoint } = apiUrl;
 
-const loginRequest = (user) => {
+
+const loginRequest = (user: User) => {
   const { username, password } = user;
   if (username && password) {
     return fetch(urlBoy + loginEndpoint, {
       method: "POST",
       body: JSON.stringify({ username, password }),
-      headers: {"Content-Type": "application/json"}
+      headers: { "Content-Type": "application/json" },
     });
   } else {
-    console.log(error);
-    return Error("incomplete information");
+    throw Error("incomplete information");
   }
 };
 
-export { loginRequest };
+const registerRequest = (user: User) => {};
+
+export { loginRequest, registerRequest };

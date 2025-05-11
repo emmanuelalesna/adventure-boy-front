@@ -1,9 +1,6 @@
 import { logoutUser, registerUser } from "./loginRegisterMethods.js";
 import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.js";
 import { loginRequest } from "./loginRegisterRequests.js";
-import apiUrl from "./url.js";
-
-const { urlBoy, accountEndpoint } = apiUrl;
 
 // login user
 const loginUser = async (e) => {
