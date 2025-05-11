@@ -1,7 +1,6 @@
 import { logoutUser, registerUser } from "./loginRegisterMethods.ts";
 import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.ts";
 import { loginRequest } from "./loginRegisterRequests.ts";
-import "../css/index.css";
 import home_bg from "../assets/home_bg.jpg";
 
 // login user

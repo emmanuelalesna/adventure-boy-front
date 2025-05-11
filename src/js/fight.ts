@@ -1,4 +1,3 @@
-import "../css/fight.css";
 import fight_bg from "../assets/fight_bg.jpg";
 
 import {
