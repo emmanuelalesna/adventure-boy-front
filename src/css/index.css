@@ -1,7 +1,6 @@
 body {
-  background-image: url("https://i.pinimg.com/originals/22/ab/32/22ab32754921f4e82b96bd39bfb33779.jpg");
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
   color: white;
 }
 html,

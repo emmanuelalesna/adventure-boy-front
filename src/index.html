@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LoginOrRegister</title>
-    <link rel="stylesheet" href="assets/css/index.css" />
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <div id="navbarandloginlogout">
@@ -16,7 +16,7 @@
       </section>
       <div id="loginlogoutarea">
         <p class="loginandregisterheaders">Login</p>
-        <form id="loginUser">
+        <form id="loginUserForm">
           <label for="username">Username</label>
           <input
             type="string"
@@ -37,14 +37,12 @@
         </form>
 
         <button hidden id="toFightScreen">
-          <a href="/fight.html" id="toFightScreenLink">
-            To fight screen</a
-          >
+          <a href="./fight.html" id="toFightScreenLink"> To fight screen</a>
         </button>
         <p id="LoginResponse"></p>
         <div id="registerFormDiv">
           <p class="loginandregisterheaders">Register</p>
-          <form id="registerUser">
+          <form id="registerUserForm">
             <label for="username">Username</label>
             <input
               type="string"
@@ -74,6 +72,6 @@
         <p id="RegisterResponse"></p>
       </div>
     </div>
-    <script type="module" src="/assets/js/index.js"></script>
+    <script type="module" src="./js/index.ts"></script>
   </body>
 </html>

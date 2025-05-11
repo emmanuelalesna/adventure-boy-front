@@ -1,11 +1,16 @@
-import * as getMethods from "./getMethods.js";
-import { updatePlayer } from "./playerMethods.js";
+import * as getMethods from "./getMethods.ts";
+import { updatePlayer } from "./playerMethods.ts";
 
-let player = JSON.parse(localStorage.getItem("currentAccount")).ownedPlayer;
+const currentAccount = localStorage.getItem("currentAccount");
+const player = currentAccount ? JSON.parse(currentAccount).ownedPlayer : null;
 let roomNumber = player.currentRoom;
-let currentEnemy, currentItem, currentSpell;
+let currentEnemy: { enemyName: any; health: number; attack: number },
+  currentItem: { itemName: any; attack: number },
+  currentSpell: { spellName: any; attack: number; manaCost: number };
 let enemyDefend = false;
 let enemyStrong = false;
+const actions = document.getElementById("actions");
+const startFightButton = document.getElementById("startFightButton");
 
 const setUpFight = () => {
   if (roomNumber <= 4) {
@@ -25,11 +30,15 @@ const setUpFight = () => {
       `You are equipped with a ${currentItem.itemName} capable of doing ${currentItem.attack} damage, and the spell ${currentSpell.spellName} that does ${currentSpell.attack} damage and costs ${currentSpell.manaCost} mana per cast.`
     );
   }
-  document.getElementById("actions").hidden = false;
-  document.getElementById("startFightButton").hidden = true;
+  if (actions) {
+    actions.hidden = false;
+  }
+  if (startFightButton) {
+    startFightButton.hidden = false;
+  }
 };
 
-const enemyAction = (playerStance) => {
+const enemyAction = (playerStance: boolean) => {
   const action = Math.floor(Math.random() * 3);
   if (action == 0) {
     newCombatInfo("The enemy attacks...");
@@ -65,7 +74,7 @@ const enemyAction = (playerStance) => {
   endCombat();
 };
 
-const playerAction = async (e) => {
+const playerAction = async (e: any) => {
   let defend = false;
   const action = e.target.id;
   if (action == "swordButton") {
@@ -135,43 +144,49 @@ const endCombat = async () => {
       await updatePlayer(player.playerId, 0, 10, 1);
     }
     enemyStrong = false;
-    document.getElementById("actions").hidden = true;
-    document.getElementById("startFightButton").hidden = false;
+    if (actions) {
+      actions.hidden = true;
+    }
+    if (startFightButton) {
+      startFightButton.hidden = false;
+    }
     return true;
   }
   return false;
 };
 
-const newCombatInfo = (text) => {
+const newCombatInfo = (text: string) => {
   let newInfo = document.createElement("p");
   newInfo.innerText = text;
-  let toAppend = document.getElementById("textbox");
-  toAppend.appendChild(newInfo);
-  toAppend.scrollTop = toAppend.scrollHeight;
+  const toAppend = document.getElementById("textbox");
+  if (toAppend) {
+    toAppend.appendChild(newInfo);
+    toAppend.scrollTop = toAppend.scrollHeight;
+  }
 };
 
 const clearCombatInfo = () => {
   let element = document.getElementById("textbox");
-  while (element.firstChild) {
+  while (element && element.firstChild) {
     element.removeChild(element.firstChild);
   }
 };
 
-const setCurrentEnemy = (room) => {
-  currentEnemy = JSON.parse(localStorage.getItem("enemies"))[room];
+const setCurrentEnemy = (room: string | number) => {
+  currentEnemy = JSON.parse(localStorage.getItem("enemies") || "null")[room];
 };
-const setCurrentItem = (room) => {
-  currentItem = JSON.parse(localStorage.getItem("items"))[room];
+const setCurrentItem = (room: string | number) => {
+  currentItem = JSON.parse(localStorage.getItem("items") || "null")[room];
 };
-const setCurrentSpell = (room) => {
-  currentSpell = JSON.parse(localStorage.getItem("spells"))[room];
+const setCurrentSpell = (room: string | number) => {
+  currentSpell = JSON.parse(localStorage.getItem("spells") || "null")[room];
 };
 
-const getItem = (room) => {
-  return JSON.parse(localStorage.getItem("items"))[room];
+const getItem = (room: string | number) => {
+  return JSON.parse(localStorage.getItem("items") || "null")[room];
 };
-const getSpell = (room) => {
-  return JSON.parse(localStorage.getItem("spells"))[room];
+const getSpell = (room: string | number) => {
+  return JSON.parse(localStorage.getItem("spells") || "null")[room];
 };
 
 const logoutAndSavePlayer = async () => {

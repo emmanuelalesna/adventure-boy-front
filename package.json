@@ -1,4 +1,6 @@
 {
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -9,12 +11,17 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@testing-library/jest-dom": "^6.4.8",
+    "@types/istanbul-lib-report": "^3.0.3",
+    "@types/node": "^22.15.17",
+    "@types/yargs-parser": "^21.0.3",
     "babel": "^6.23.0",
     "babel-jest": "^29.7.0",
+    "eslint": "^9.26.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "vite": "^6.3.5"
   },
   "dependencies": {
