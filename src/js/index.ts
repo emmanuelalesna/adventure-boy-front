@@ -1,6 +1,5 @@
-import { logoutUser, registerUser } from "./loginRegisterMethods.ts";
 import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.ts";
-import { loginRequest } from "./loginRegisterRequests.ts";
+import { loginRequest, registerRequest } from "./loginRegisterRequests.ts";
 import home_bg from "../assets/home_bg.jpg";
 
 // login user
@@ -43,13 +42,26 @@ const loginUser = async (e: any) => {
     console.log(error);
   }
 };
+
+const registerUser = async (e: any) => {
+  e.preventDefault()
+  const user = {
+    username: e.target.elements[0].value,
+    password: e.target.elements[1].value
+  };
+
+}
+
 const logoutButton = document.getElementById("logoutButton");
 const registerUserForm = document.getElementById("registerUserForm");
 const loginUserForm = document.getElementById("loginUserForm");
 
-if (logoutButton) logoutButton.addEventListener("click", logoutUser);
+if (logoutButton) logoutButton.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
+});
 
-if (registerUserForm) registerUserForm.addEventListener("submit", registerUser);
+if (registerUserForm) registerUserForm.addEventListener("submit", registerRequest);
 
 if (loginUserForm) loginUserForm.addEventListener("submit", loginUser);
 
