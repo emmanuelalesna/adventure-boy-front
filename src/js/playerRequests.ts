@@ -1,22 +1,17 @@
 import { urlBoy, playerEndpoint } from "./url.json";
 
-const createPlayer = async (id: number, name: string) => {
-  const player = {
-    PlayerId: id,
-    Name: name,
-  };
-  fetch(urlBoy + playerEndpoint, {
-    method: "POST",
-    body: JSON.stringify(player),
-    headers: {
-      "Content-type": "application/json",
-    },
-  }).then((res) => {
-    if (res.status == 200) {
-      let RegisterResponse = document.getElementById("RegisterResponse");
-      if (RegisterResponse) RegisterResponse.innerText = "Player created!";
-    }
-  });
+const createPlayerRequest = async (id: number, name: string) => {
+  if (id && name) {
+    return fetch(urlBoy + playerEndpoint, {
+      method: "POST",
+      body: JSON.stringify({ PlayerId: id, Name: name }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+  } else {
+    throw new Error("incomplete information")
+  }
 };
 
 const updatePlayer = async (
@@ -42,4 +37,4 @@ const updatePlayer = async (
   await req;
 };
 
-export { createPlayer, updatePlayer };
+export { createPlayerRequest, updatePlayer };

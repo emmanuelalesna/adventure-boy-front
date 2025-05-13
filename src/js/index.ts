@@ -1,7 +1,7 @@
 import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.ts";
 import { loginRequest, registerRequest } from "./loginRegisterRequests.ts";
 import home_bg from "../assets/home_bg.jpg";
-import { createPlayer } from "./playerRequests.ts";
+import { createPlayerRequest } from "./playerRequests.ts";
 
 // login user
 const loginUser = async (e: any) => {
@@ -48,7 +48,7 @@ const registerUser = async (e: any) => {
   e.preventDefault();
   const user = {
     username: e.target.elements[0].value,
-    password: e.target.elements[1].value
+    password: e.target.elements[1].value,
   };
   try {
     const registerResponse = await registerRequest(user);
@@ -56,21 +56,39 @@ const registerUser = async (e: any) => {
       const resBody = await registerResponse.json();
       createPlayer(resBody.accountId, e.target.elements[2].value);
     } else {
-      throw new Error(`${registerResponse.status}: ${registerResponse.statusText}`)
+      throw new Error(
+        `${registerResponse.status}: ${registerResponse.statusText}`
+      );
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
+
+const createPlayer = async (id: number, name: string) => {
+  try {
+    const createResponse = await createPlayerRequest(id, name);
+    if (createResponse.ok) {
+      const registerResponse = document.getElementById("RegisterResponse");
+      if (registerResponse) registerResponse.innerText = "Player created!";
+    } else {
+      throw new Error(`${createResponse.status}: ${createResponse.statusText}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const logoutButton = document.getElementById("logoutButton");
 const registerUserForm = document.getElementById("registerUserForm");
 const loginUserForm = document.getElementById("loginUserForm");
 
-if (logoutButton) logoutButton.addEventListener("click", () => {
-  localStorage.clear();
-  location.reload();
-});
+if (logoutButton) {
+  logoutButton.addEventListener("click", () => {
+    localStorage.clear();
+    location.reload();
+  });
+}
 
 if (registerUserForm) registerUserForm.addEventListener("submit", registerUser);
 
