@@ -1,5 +1,5 @@
 import * as getMethods from "./getMethods.ts";
-import { updatePlayer } from "./playerMethods.ts";
+import { updatePlayer } from "./playerRequests.ts";
 
 const currentAccount = localStorage.getItem("currentAccount");
 const player = currentAccount ? JSON.parse(currentAccount).ownedPlayer : null;
@@ -189,15 +189,13 @@ const getSpell = (room: string | number) => {
   return JSON.parse(localStorage.getItem("spells") || "null")[room];
 };
 
-const logoutAndSavePlayer = async () => {
+const savePlayer = async () => {
   await updatePlayer(
     player.playerId,
     roomNumber,
     player.currentHealth,
     player.currentMana
   );
-  localStorage.clear();
-  window.location.href = "./index.html";
 };
 
-export { setUpFight, logoutAndSavePlayer, playerAction };
+export { setUpFight, savePlayer, playerAction };
