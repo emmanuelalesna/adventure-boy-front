@@ -1,6 +1,7 @@
 import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.ts";
 import { loginRequest, registerRequest } from "./loginRegisterRequests.ts";
 import home_bg from "../assets/home_bg.jpg";
+import { createPlayer } from "./playerRequests.ts";
 
 // login user
 const loginUser = async (e: any) => {
@@ -44,12 +45,22 @@ const loginUser = async (e: any) => {
 };
 
 const registerUser = async (e: any) => {
-  e.preventDefault()
+  e.preventDefault();
   const user = {
     username: e.target.elements[0].value,
     password: e.target.elements[1].value
   };
-
+  try {
+    const registerResponse = await registerRequest(user);
+    if (registerResponse.ok) {
+      const resBody = await registerResponse.json();
+      createPlayer(resBody.accountId, e.target.elements[2].value);
+    } else {
+      throw new Error(`${registerResponse.status}: ${registerResponse.statusText}`)
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const logoutButton = document.getElementById("logoutButton");
@@ -61,7 +72,7 @@ if (logoutButton) logoutButton.addEventListener("click", () => {
   location.reload();
 });
 
-if (registerUserForm) registerUserForm.addEventListener("submit", registerRequest);
+if (registerUserForm) registerUserForm.addEventListener("submit", registerUser);
 
 if (loginUserForm) loginUserForm.addEventListener("submit", loginUser);
 
