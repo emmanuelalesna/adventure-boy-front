@@ -1,25 +1,21 @@
 # Adventure Boy: Heroes & Monsters
+Adventure Boy: Heroes & Monsters is a .NET full-stack web application I helped create during my time at Revature. We were tasked with creating a full-stack application that uses at least one external API; here we used the [Scryfall API](https://scryfall.com/docs/api).
 
 ## Overview
+My group members were big fans of Dungeons and Dragons and Magic the Gathering (MtG), so we decided to create our take on a simple dungeon crawler.
 
-Adventure Boy: Heroes & Monsters is a .NET fullstack web application that leverages the Scryfall API. After making an account, players fight different enemies while gaining new and more powerful equipment and spells as they progress through the game. Information about player accounts and their progress is stored on an Azure hosted SQL Server database.
+You start by making an account or logging into an existing one. From there, you are taken to the game screen, where you face an enemy equipped with a weapon and a spell. You can take one of three actions, and hopefully, you choose the correct course that allows you to defeat every monster in the gauntlet. After finishing, you can log out and log back into wherever you were, as your progress is saved in the database.
 
-## Adventure Boy: Heros & Monsters has fun and exciting features such as:
-- Create an account!
-- Log into your account!
-- Experience the thrill of entering the incorrect password or incorrect username!
-## Once logged in, players of Adventure Boy: Heroes & Monsters can:
-- Adventure through five exciting levels based on beautiful Magic the Gathering card art
-- Fight five monsters, also based on beautiful Magic the Gathering card art
-- Swing your sword, cast a spell, or block
-- Pick up new items as you defeat more and more enemies
-- Experience the satisfaction of victory by reading a line of text on the screen
-- Experience the disappointment of defeat by reading a much longer paragraph describing your demise
-- Log out
+Adventure Boy is also hosted on Azure and can be found [here](https://ashy-forest-0cdf9410f.6.azurestaticapps.net).
+
+The corresponding respository for the back-end can be found [here](https://github.com/emmanuelalesna/adventure-boy-back).
+
 ## Technologies
-The backend of Adventure Boy uses SQL Server to store data, .NET and ASP.NET to program API access, Entity Framework using code-first migrations to export models into the database, and xUnit to test.
+The front-end uses primarily HTML/CSS and JavaScript to structure the web pages and program their functionality.
 
-The frontend uses primarily HTML/CSS and JavaScript to structure the web pages and program their functionality.
+The back-end uses SQL Server to store data, .NET and ASP.NET to program API access, Entity Framework using code-first migrations to export models into the database, and xUnit to test.
+
+Since finishing and presenting this project, I've taken it upon myself to continue developing it, incorporating the knowledge I've gained since. To start, I made varied changes across the entire application, but the biggest changes were implementing Vite to build and host this application on Azure, and converting all JavaScript files to TypeScript. In the future, I hope to migrate the entire front-end to a framework like React and more fully flesh out the feature set.
 
 ## Features
 Users start by either creating a new account or logging into a previous account. New accounts will start at level 1, while logging into an existing account will resume the player's progress.
@@ -37,6 +33,3 @@ There are five levels, with the fifth level featuring a dangerous dragon as the 
 At any time, the player can also log out. Their progress will be saved for their next login.
 ## ERD Framework:
 ![image](https://github.com/user-attachments/assets/fc420819-50b6-4021-a4a7-7cd55908ea79)
-
-## Scryfall External API:
-https://scryfall.com/docs/api
