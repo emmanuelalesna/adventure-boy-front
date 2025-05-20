@@ -1,6 +1,6 @@
 {
-  "urlBoyBak": "https://adventure-boy-back-cqhtbge9bzhrfhfx.eastus2-01.azurewebsites.net/",
-  "urlBoy": "http://localhost:5114/",
+  "urlBoy": "adventure-boy-api-bxebfbhpdehraffw.eastus2-01.azurewebsites.net",
+  "urlBoyBak": "http://localhost:5114/",
   "itemEndpoint": "api/item/",
   "spellEndpoint": "api/spell/",
   "enemyEndpoint": "api/enemy/",
