@@ -2,12 +2,13 @@ import { getItems, getSpells, getEnemies, getRooms } from "./getMethods.ts";
 import { loginRequest, registerRequest } from "./loginRegisterRequests.ts";
 import home_bg from "../assets/home_bg.jpg";
 import { createPlayerRequest } from "./playerRequests.ts";
+import type { User } from "./User.ts";
 
 // login user
 const loginUser = async (e: any) => {
   e.preventDefault();
-  const user = {
-    username: e.target.elements[0].value,
+  const user: User = {
+    email: e.target.elements[0].value,
     password: e.target.elements[1].value,
   };
   let displayedLoginInfo = document.getElementById("LoginResponse");
@@ -46,15 +47,15 @@ const loginUser = async (e: any) => {
 
 const registerUser = async (e: any) => {
   e.preventDefault();
-  const user = {
-    username: e.target.elements[0].value,
+  const user: User = {
+    email: e.target.elements[0].value,
     password: e.target.elements[1].value,
   };
   try {
     const registerResponse = await registerRequest(user);
     if (registerResponse.ok) {
       const resBody = await registerResponse.json();
-      createPlayer(resBody.accountId, e.target.elements[2].value);
+      // createPlayer(resBody.accountId, e.target.elements[2].value);
     } else {
       throw new Error(
         `${registerResponse.status}: ${registerResponse.statusText}`

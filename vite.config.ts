@@ -13,7 +13,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 index: path.resolve(__dirname, 'src/index.html'),
-                fight: path.resolve(__dirname, 'src/fight.html')
+                fight: path.resolve(__dirname, 'src/fight.html'),
+                account: path.resolve(__dirname, 'src/account.html')
 
             },
             output: {
