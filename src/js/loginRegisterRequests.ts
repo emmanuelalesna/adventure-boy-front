@@ -17,17 +17,29 @@ const loginRequest = (user: User) => {
 const registerRequest = async (user: User) => {
   const { email, password } = user;
   if (email && password) {
-    return fetch(urlBoy + accountEndpoint, {
+    return fetch(urlBoy + accountEndpoint + "register/", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
-        "Content-Type": "application/json"
-      }
-    })
+        "Content-Type": "application/json",
+      },
+    });
   } else {
     throw new Error("incomplete information");
   }
 };
 
+const idRequest = async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    return fetch(urlBoy + accountEndpoint + "id/", {
+      headers: {
+        Authorization: "Bearer " + JSON.parse(token).accessToken,
+      },
+    });
+  } else {
+    throw new Error("token not found");
+  }
+};
 
-export { loginRequest, registerRequest };
+export { loginRequest, registerRequest, idRequest };

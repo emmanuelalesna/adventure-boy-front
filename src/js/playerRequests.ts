@@ -1,16 +1,23 @@
+import type { Player } from "./Player";
 import { urlBoy, playerEndpoint } from "./url.json";
 
-const createPlayerRequest = async (id: number, name: string) => {
-  if (id && name) {
+const createPlayerRequest = async (player: Player) => {
+  const { AccountId, Name, CurrentHealth, CurrentMana } = player;
+  if (AccountId && Name) {
     return fetch(urlBoy + playerEndpoint, {
       method: "POST",
-      body: JSON.stringify({ PlayerId: id, Name: name }),
+      body: JSON.stringify({
+        AccountId,
+        Name,
+        CurrentHealth,
+        CurrentMana,
+      }),
       headers: {
         "Content-type": "application/json",
       },
-    })
+    });
   } else {
-    throw new Error("incomplete information")
+    throw new Error("Player ID and name is required");
   }
 };
 
