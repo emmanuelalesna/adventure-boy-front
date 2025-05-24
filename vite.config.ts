@@ -14,7 +14,7 @@ export default defineConfig({
             input: {
                 index: path.resolve(__dirname, 'src/index.html'),
                 fight: path.resolve(__dirname, 'src/fight.html'),
-                account: path.resolve(__dirname, 'src/account.html')
+                playerPage: path.resolve(__dirname, 'src/playerPage.html')
 
             },
             output: {

@@ -18,6 +18,7 @@ const loginUser = async (e: any) => {
   let displayedLoginInfo = document.getElementById("LoginResponse");
   let toFightScreen = document.getElementById("toFightScreen");
   let registerFormDiv = document.getElementById("registerFormDiv");
+  const toPlayerScreen = document.getElementById("toPlayerScreen");
   try {
     const loginResponse = await loginRequest(user);
     if (loginResponse.ok) {
@@ -34,7 +35,7 @@ const loginUser = async (e: any) => {
       }
 
       if (toFightScreen) toFightScreen.hidden = false;
-
+      if (toPlayerScreen) toPlayerScreen.hidden = false;
       if (registerFormDiv) registerFormDiv.hidden = true;
 
       getItems();

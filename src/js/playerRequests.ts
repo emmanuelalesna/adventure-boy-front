@@ -3,7 +3,8 @@ import { urlBoy, playerEndpoint } from "./url.json";
 
 const createPlayerRequest = async (player: Player) => {
   const { AccountId, Name, CurrentHealth, CurrentMana } = player;
-  if (AccountId && Name) {
+  const token = localStorage.getItem("token");
+  if (AccountId && Name && token) {
     return fetch(urlBoy + playerEndpoint, {
       method: "POST",
       body: JSON.stringify({
@@ -14,6 +15,7 @@ const createPlayerRequest = async (player: Player) => {
       }),
       headers: {
         "Content-type": "application/json",
+        Authorization: "Bearer " + JSON.parse(token).accessToken,
       },
     });
   } else {
@@ -44,4 +46,18 @@ const updatePlayer = async (
   await req;
 };
 
-export { createPlayerRequest, updatePlayer };
+const getPlayers = async () => {
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
+  if (token && id) {
+    return fetch(urlBoy + playerEndpoint + id, {
+      headers: {
+        Authorization: "Bearer " + JSON.parse(token).accessToken,
+      },
+    });
+  } else {
+    throw new Error("token and id is required");
+  }
+};
+
+export { createPlayerRequest, updatePlayer, getPlayers };
