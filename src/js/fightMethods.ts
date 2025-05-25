@@ -1,8 +1,9 @@
 import * as getMethods from "./getMethods.ts";
 import { updatePlayer } from "./playerRequests.ts";
 
-const currentAccount = localStorage.getItem("currentAccount");
-const player = currentAccount ? JSON.parse(currentAccount).ownedPlayer : null;
+const player = localStorage.getItem("player")
+  ? JSON.parse(localStorage.getItem("player")!)
+  : "no player";
 let roomNumber = player.currentRoom;
 let currentEnemy: { enemyName: any; health: number; attack: number },
   currentItem: { itemName: any; attack: number },

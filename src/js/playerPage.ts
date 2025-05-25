@@ -16,10 +16,50 @@ const rogue = {
   mana: 2,
 };
 
+const addToTable = (player: Player) => {
+  const playerTable = document.getElementById("playerTable");
+  if (playerTable)
+    playerTable.insertAdjacentHTML(
+      "beforeend",
+      `
+      <tr>
+        <td>${player.playerId}</td>
+        <td>${player.name}</td>
+        <td>${player.currentHealth}</td>
+        <td>${player.currentMana}</td>
+        <td>${player.currentRoom}</td>
+        <td><button>Edit</button></td>
+        <td><button class="select" id=${player.playerId}>Select</button></td>
+      </tr>
+  `
+    );
+  document
+    .getElementById(player.playerId!.toString())
+    ?.addEventListener("click", function () {
+      localStorage.setItem("player", JSON.stringify(player));
+      changePlayerText(player.playerId!);
+    });
+};
+
+const loadPlayers = async () => {
+  try {
+    const playersRes = await getPlayers();
+    if (playersRes.ok) {
+      const players = await playersRes.json();
+      for (const element of players) {
+        addToTable(element);
+      }
+    } else {
+      throw new Error(`${playersRes.status}: ${playersRes.statusText}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const createPlayer = async (e: any) => {
   e.preventDefault();
-
-  let role;
+  let role = warrior;
   switch (e.target.elements[1].value) {
     case "mage":
       role = mage;
@@ -27,66 +67,47 @@ const createPlayer = async (e: any) => {
     case "rogue":
       role = rogue;
       break;
-    default:
-      role = warrior;
   }
   const player: Player = {
-    AccountId: localStorage.getItem("id")!,
-    Name: e.target.elements[0].value,
-    CurrentHealth: role.health,
-    CurrentMana: role.mana,
+    accountId: localStorage.getItem("id")!,
+    name: e.target.elements[0].value,
+    currentHealth: role.health,
+    currentMana: role.mana,
   };
 
   try {
     const createPlayer = await createPlayerRequest(player);
     if (createPlayer.ok) {
-      const resBody = await createPlayer.json();
-      const playerTable = document.getElementById("playerTable");
-      if (playerTable)
-        playerTable.innerHTML += `
-      <tr>
-        <td>${resBody.playerId}</td>
-        <td>${resBody.name}</td>
-        <td>${resBody.currentHealth}</td>
-        <td>${resBody.currentMana}</td>
-        <td>${resBody.currentRoom}</td>
-        <td><button>Edit</button></td>
-        <td><button>Select</button></td>
-      </tr>
-      `;
+      const playerRes = await createPlayer.json();
+      addToTable(playerRes);
+    } else {
+      throw new Error(`${createPlayer.status}: ${createPlayer.statusText}`);
     }
   } catch (error) {
     console.log(error);
   }
 };
+
+const startAdventure = () => {
+  if (localStorage.getItem("player")) {
+    window.location.href = "../fight.html";
+  } else {
+    alert("Please choose an adventurer before proceeding.");
+  }
+};
+
+const changePlayerText = (playerId: number) => {
+  document.getElementById(
+    "playerText"
+  )!.innerText = `You chose player ${playerId}`;
+};
+
+window.onload = loadPlayers;
 
 document
   .getElementById("createPlayer")
   ?.addEventListener("submit", createPlayer);
 
-const loadPlayers = async () => {
-  try {
-    const res = await getPlayers();
-    if (res.ok) {
-      const resBody = await res.json();
-      for (const element of resBody) {
-        const playerTable = document.getElementById("playerTable");
-        if (playerTable)
-          playerTable.innerHTML += `
-      <tr>
-        <td>${element.playerId}</td>
-        <td>${element.name}</td>
-        <td>${element.currentHealth}</td>
-        <td>${element.currentMana}</td>
-        <td>${element.currentRoom}</td>
-        <td><button>Edit</button></td>
-        <td><button>Select</button></td>
-      </tr>`;
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-window.onload = loadPlayers;
+document
+  .getElementById("startButton")
+  ?.addEventListener("click", startAdventure);

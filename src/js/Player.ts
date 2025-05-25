@@ -1,8 +1,10 @@
 interface Player {
-  AccountId: string;
-  Name: string;
-  CurrentHealth: number;
-  CurrentMana: number;
+  accountId?: string;
+  playerId?: number;
+  name?: string;
+  currentHealth?: number;
+  currentMana?: number;
+  currentRoom?: number;
 }
 
 export type { Player };

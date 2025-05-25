@@ -5,15 +5,15 @@ const token = localStorage.getItem("token");
 const id = localStorage.getItem("id");
 
 const createPlayerRequest = async (player: Player) => {
-  const { AccountId, Name, CurrentHealth, CurrentMana } = player;
-  if (AccountId && Name && token) {
+  const { accountId, name, currentHealth, currentMana } = player;
+  if (accountId && name && token) {
     return fetch(urlBoy + playerEndpoint, {
       method: "POST",
       body: JSON.stringify({
-        AccountId,
-        Name,
-        CurrentHealth,
-        CurrentMana,
+        accountId,
+        name,
+        currentHealth,
+        currentMana,
       }),
       headers: {
         "Content-type": "application/json",
