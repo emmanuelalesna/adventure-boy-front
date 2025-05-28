@@ -25,32 +25,23 @@ const createPlayerRequest = async (player: Player) => {
   }
 };
 
-const updatePlayer = async (
-  id: number,
-  room: number,
-  health: number,
-  mana: number
-) => {
-  const player = {
-    PlayerId: id,
-    Name: "random",
-    CurrentRoom: room,
-    CurrentHealth: health,
-    CurrentMana: mana,
-  };
-  let req = fetch(urlBoy + playerEndpoint, {
-    method: "PATCH",
-    body: JSON.stringify(player),
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  await req;
+const updatePlayerRequest = async (playerId: number, name: string) => {
+  if (token && id) {
+    const params = new URLSearchParams({ name: name });
+    return fetch(urlBoy + playerEndpoint + playerId + `?${params}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: "Bearer " + JSON.parse(token).accessToken,
+      },
+    });
+  } else {
+    throw new Error("token and/or id is missing");
+  }
 };
 
 const getPlayer = async (playerId: string) => {
   if (token && id) {
-    const params = new URLSearchParams().append("playerId", playerId);
+    const params = new URLSearchParams({ playerId: playerId });
     return fetch(urlBoy + playerEndpoint + id + `?${params}`, {
       headers: { Authorization: "Bearer " + JSON.parse(token).accessToken },
     });
@@ -84,7 +75,7 @@ const deletePlayerRequest = async (playerId: number) => {
 
 export {
   createPlayerRequest,
-  updatePlayer,
+  updatePlayerRequest,
   getPlayer,
   getPlayers,
   deletePlayerRequest,

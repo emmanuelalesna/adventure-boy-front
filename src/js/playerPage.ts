@@ -3,6 +3,7 @@ import {
   createPlayerRequest,
   deletePlayerRequest,
   getPlayers,
+  updatePlayerRequest,
 } from "./playerRequests";
 
 const mage = {
@@ -28,7 +29,7 @@ const addToTable = (player: Player) => {
       `
       <tr id=row${player.playerId}>
         <td>${player.playerId}</td>
-        <td>${player.name}</td>
+        <td id=name${player.playerId}>${player.name}</td>
         <td>${player.currentHealth}</td>
         <td>${player.currentMana}</td>
         <td>${player.currentRoom}</td>
@@ -51,6 +52,14 @@ const addToTable = (player: Player) => {
       deletePlayer(player.playerId!);
       document.getElementById(`row${player.playerId}`)!.hidden = true;
     });
+
+  document
+    .getElementById("edit" + player.playerId!.toString())
+    ?.addEventListener("click", function () {
+      document.getElementById("newNameForm")!.hidden = false;
+      (document.getElementById("playerId") as HTMLInputElement).value =
+        player.playerId!.toString();
+    });
 };
 
 const loadPlayers = async () => {
@@ -69,6 +78,23 @@ const loadPlayers = async () => {
   }
 };
 
+const editPlayer = async (e: any) => {
+  e.preventDefault();
+  const playerId = e.target.elements[0].value;
+  const name = e.target.elements[1].value;
+  try {
+    const updatePlayer = await updatePlayerRequest(playerId, name);
+    if (updatePlayer.ok) {
+      document.getElementById("newNameForm")!.hidden = true;
+      document.getElementById("name" + playerId)!.innerText = name;
+    } else {
+      throw new Error(`${updatePlayer.status}: ${updatePlayer.statusText}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deletePlayer = async (playerId: number) => {
   try {
     const deletePlayer = await deletePlayerRequest(playerId);
@@ -76,6 +102,8 @@ const deletePlayer = async (playerId: number) => {
       document.getElementById(
         "playerText"
       )!.innerText = `Player ${playerId} has been deleted.`;
+    } else {
+      throw new Error(`${deletePlayer.status}: ${deletePlayer.statusText}`);
     }
   } catch (error) {
     console.log(error);
@@ -136,3 +164,5 @@ document
 document
   .getElementById("startButton")
   ?.addEventListener("click", startAdventure);
+
+document.getElementById("newNameForm")?.addEventListener("submit", editPlayer);

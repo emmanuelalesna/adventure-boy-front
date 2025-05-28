@@ -17,6 +17,13 @@
       </select>
       <button type="submit" value="submit">Create</button>
     </form>
+    <form id="newNameForm" hidden>
+      <label for="playerId">Selected id:</label>
+      <input type="text" name="playerId" id="playerId" readonly/>
+      <label for="newName">New name</label>
+      <input type="text" name="newName" id="newName" />
+      <button type="submit" value="submit">Change</button>
+    </form>
     <h1 id="playerText"></h1>
     <table id="playerTable">
       <tr>
