@@ -71,4 +71,21 @@ const getPlayers = async () => {
   }
 };
 
-export { createPlayerRequest, updatePlayer, getPlayer, getPlayers };
+const deletePlayerRequest = async (playerId: number) => {
+  if (token && id) {
+    return fetch(urlBoy + playerEndpoint + playerId, {
+      method: "DELETE",
+      headers: { Authorization: "Bearer " + JSON.parse(token).accessToken },
+    });
+  } else {
+    throw new Error("token and/or id is missing");
+  }
+};
+
+export {
+  createPlayerRequest,
+  updatePlayer,
+  getPlayer,
+  getPlayers,
+  deletePlayerRequest,
+};

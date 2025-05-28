@@ -1,5 +1,9 @@
 import type { Player } from "./Player";
-import { createPlayerRequest, getPlayers } from "./playerRequests";
+import {
+  createPlayerRequest,
+  deletePlayerRequest,
+  getPlayers,
+} from "./playerRequests";
 
 const mage = {
   health: 5,
@@ -22,7 +26,7 @@ const addToTable = (player: Player) => {
     playerTable.insertAdjacentHTML(
       "beforeend",
       `
-      <tr>
+      <tr id=row${player.playerId}>
         <td>${player.playerId}</td>
         <td>${player.name}</td>
         <td>${player.currentHealth}</td>
@@ -40,6 +44,13 @@ const addToTable = (player: Player) => {
       localStorage.setItem("player", JSON.stringify(player));
       changePlayerText(player.playerId!);
     });
+
+  document
+    .getElementById("delete" + player.playerId!.toString())
+    ?.addEventListener("click", function () {
+      deletePlayer(player.playerId!);
+      document.getElementById(`row${player.playerId}`)!.hidden = true;
+    });
 };
 
 const loadPlayers = async () => {
@@ -52,6 +63,19 @@ const loadPlayers = async () => {
       }
     } else {
       throw new Error(`${playersRes.status}: ${playersRes.statusText}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deletePlayer = async (playerId: number) => {
+  try {
+    const deletePlayer = await deletePlayerRequest(playerId);
+    if (deletePlayer.ok) {
+      document.getElementById(
+        "playerText"
+      )!.innerText = `Player ${playerId} has been deleted.`;
     }
   } catch (error) {
     console.log(error);
