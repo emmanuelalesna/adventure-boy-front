@@ -28,13 +28,14 @@ const addToTable = (player: Player) => {
         <td>${player.currentHealth}</td>
         <td>${player.currentMana}</td>
         <td>${player.currentRoom}</td>
-        <td><button>Edit</button></td>
-        <td><button class="select" id=${player.playerId}>Select</button></td>
+        <td><button id=select${player.playerId}>Select</button></td>
+        <td><button id=edit${player.playerId}>Edit</button></td>
+        <td><button id=delete${player.playerId}>Delete</button></td>
       </tr>
   `
     );
   document
-    .getElementById(player.playerId!.toString())
+    .getElementById("select" + player.playerId!.toString())
     ?.addEventListener("click", function () {
       localStorage.setItem("player", JSON.stringify(player));
       changePlayerText(player.playerId!);
