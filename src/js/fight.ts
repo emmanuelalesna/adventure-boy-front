@@ -2,7 +2,7 @@ import fight_bg from "../assets/fight_bg.jpg";
 
 import {
   setUpFight,
-  logoutAndSavePlayer,
+  savePlayer,
   playerAction,
 } from "./fightMethods.js";
 
@@ -13,7 +13,11 @@ if (fightButton) {
 
 const loginButton = document.getElementById("logoutButton");
 if (loginButton) {
-  loginButton.addEventListener("click", logoutAndSavePlayer);
+  loginButton.addEventListener("click", async () => {
+    await savePlayer();
+    localStorage.clear();
+    window.location.href = "/index.html"
+  });
 }
 
 const swordButton = document.getElementById("swordButton");

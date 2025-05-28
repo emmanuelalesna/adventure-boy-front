@@ -62,7 +62,7 @@ body {
 #passwordLogin,
 #usernameRegister,
 #passwordRegister,
-#firstnameRegister {
+#firstNameRegister {
   height: 3rem;
   font-size: 1.5rem;
   border: 1px solid #ccc;
@@ -76,7 +76,8 @@ body {
   font-size: 1.5rem;
 }
 
-#toFightScreenLink {
+#toFightScreenLink,
+#toPlayerScreenLink {
   padding: 1px 6px;
   border: 1px outset buttonborder;
   border-radius: 3px;

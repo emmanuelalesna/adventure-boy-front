@@ -1,19 +1,45 @@
-import { urlBoy, loginEndpoint } from "./url.json";
+import { urlBoy, loginEndpoint, accountEndpoint } from "./url.json";
 import type { User } from "./User.ts";
 
 const loginRequest = (user: User) => {
-  const { username, password } = user;
-  if (username && password) {
+  const { email, password } = user;
+  if (email && password) {
     return fetch(urlBoy + loginEndpoint, {
       method: "POST",
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify(user),
       headers: { "Content-Type": "application/json" },
     });
   } else {
-    throw Error("incomplete information");
+    throw new Error("incomplete information");
   }
 };
 
-const registerRequest = () => {};
+const registerRequest = async (user: User) => {
+  const { email, password } = user;
+  if (email && password) {
+    return fetch(urlBoy + accountEndpoint + "register/", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } else {
+    throw new Error("incomplete information");
+  }
+};
 
-export { loginRequest, registerRequest };
+const idRequest = async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    return fetch(urlBoy + accountEndpoint + "id/", {
+      headers: {
+        Authorization: "Bearer " + JSON.parse(token).accessToken,
+      },
+    });
+  } else {
+    throw new Error("token not found");
+  }
+};
+
+export { loginRequest, registerRequest, idRequest };
